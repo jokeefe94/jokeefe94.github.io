@@ -4,6 +4,28 @@
 <head>
   <title>SuperToDo</title>
   <link href="site.css" rel="stylesheet">
+  <script>
+    function validateForm() {
+    var x = document.forms["logInForm"]["email"].value;
+    var y = document.forms["logInForm"]["password"].value;
+    if (x == null || x == "") {
+        alert("Email must be filled out");
+        return false;
+    }
+    else if (y == null || y == "") {
+        alert("Password must be filled out");
+        return false;
+    }
+
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }
+}
+  </script>
+
 </head>
 
 <body>
@@ -15,7 +37,7 @@
 	<div id="main">
   		<h1>Welcome to SuperToDo</h1>
 
-          <form name="login" action="login_form.asp" onsubmit="return validateForm()" method="post">
+          <form name="logInForm" action="login_form.asp" onsubmit="return validateForm()" method="post">
             Email: <input type="text" name="email"><br>
             Password: <input type="text" name="password"><br>
             <input type="submit" value="Submit">
