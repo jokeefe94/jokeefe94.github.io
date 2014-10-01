@@ -1,5 +1,5 @@
 document.getElementById("foot01").innerHTML =
-"<p>&copy;  " + new Date().getFullYear() + " W3Schools. All rights reserved.</p>";
+"<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
 
 document.getElementById("nav01").innerHTML =
 "<ul id='menu'>" +
