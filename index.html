@@ -4,7 +4,9 @@
 <head>
   <title>SuperToDo</title>
   <link href="site.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
+
     function validateLogInForm() {
     var x = document.forms["logInForm"]["email"].value;
     var y = document.forms["logInForm"]["password"].value;
@@ -22,41 +24,46 @@
     if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
         alert("Not a valid e-mail address");
         return false;
+
+ 
     }
 
-    Todo.startSession({
-      email:    x,
-      password: y,
-      success:  function(user) { alert('login success!') },
-      error:    function(xhr)  { alert('login error!') }
-    });
+    
 }
 
- function validateRegisterForm() {
+ function validateRegisterForm() 
+ {
+    alert("fired");
     var x = document.forms["registerForm"]["email"].value;
     var y = document.forms["registerForm"]["password"].value;
-    if (x == null || x == "") {
+    if (x == null || x == "") 
+    {
         alert("Email must be filled out");
         return false;
     }
-    else if (y == null || y == "") {
+    else if (y == null || y == "") 
+    {
         alert("Password must be filled out");
         return false;
     }
 
     var atpos = x.indexOf("@");
     var dotpos = x.lastIndexOf(".");
-    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) 
+    {
         alert("Please enter a valid e-mail address");
         return false;
-    }
 
-   Todo.createUser({
-    email:    x,
-    password: y,
-    success:  function(user) { alert('user create success!') },
-    error:    function(xhr)  { alert('user create error!') }
-  });
+    }
+  
+$.post("http://recruiting-api.nextcapital.com/users", {
+email: x,
+password: y,
+}, function(data) {
+  console.log(data);
+alert(data);
+});
+   
 }
   </script>
 
@@ -77,18 +84,15 @@
           </form>
 
           <h2>New Users, Please Register Below</h2>
-          <form name="registerForm" action="register_form.asp" onsubmit="return validateRegisterForm()" method="post">
-            Email: <input type="text" name="email"><br>
-            Password: <input type="password" name="password"><br>
-            <input type="submit" value="Register">
+          <form name="registerForm" id="regForm" onsubmit="return validateRegisterForm()">
+            Email: <input type="text" name="email" id="regEmail"><br>
+            Password: <input type="password" name="password" id="regPassword"><br>
+            <input type="submit" value="Register" id="regButton">
           </form>
-
   		<footer id="foot01"></footer>
 	</div>
 
 	<script src="script.js"></script>
-  <script src='client/js/jquery-1.11.1.min.js'></script>
-  <script src='client/js/todo.client.js'></script>
 
 </body>
 </html>
