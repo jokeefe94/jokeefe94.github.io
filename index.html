@@ -8,6 +8,8 @@
   <script>
 
     function validateLogInForm() {
+      //document.getElementById("logIn").innerHTML = "Hello JavaScript!";
+
     var x = document.forms["logInForm"]["email"].value;
     var y = document.forms["logInForm"]["password"].value;
     if (x == null || x == "") {
@@ -24,16 +26,28 @@
     if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
         alert("Not a valid e-mail address");
         return false;
-
- 
     }
 
+    $.post("http://recruiting-api.nextcapital.com/users/sign_in", {
+      email: x,
+      password: y,
+    }, function(data) {
+      var api_token = data.api_token;
+      var user_id = data.id;
+      var toDoListHTML = "";
+      for (var i = data.todos.length - 1; i >= 0; i--) {
+         toDoListHTML += getToDo(user_id, api_token,data.todos[i]);
+       };
+     document.getElementById("logIn").innerHTML=toDoListHTML;
+
+    });
+
+    return false;
     
 }
 
  function validateRegisterForm() 
  {
-    alert("fired");
     var x = document.forms["registerForm"]["email"].value;
     var y = document.forms["registerForm"]["password"].value;
     if (x == null || x == "") 
@@ -56,14 +70,23 @@
 
     }
   
-$.post("http://recruiting-api.nextcapital.com/users", {
-email: x,
-password: y,
-}, function(data) {
-  console.log(data);
-alert(data);
-});
+    $.post("http://recruiting-api.nextcapital.com/users", {
+      email: x,
+      password: y,
+    }, function(data) {
+      alert(data.id);
+    });
    
+   return false;
+}
+
+function getToDo(user_id, api_token, id)
+{
+    var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+id+"?api_token="+api_token;
+    $.get(requestHTTP, function(data){
+      return data.description;
+    })
+
 }
   </script>
 
@@ -75,9 +98,9 @@ alert(data);
 
 
 	<div id="main">
-  		<h1>Welcome to SuperToDo</h1>
+  		<h1 id="logIn">Welcome to SuperToDo</h1>
         <h2>Returning Users, Please Log In Below</h2>
-          <form name="logInForm" action="login_form.asp" onsubmit="return validateLogInForm()" method="post">
+          <form name="logInForm" onsubmit="return validateLogInForm()">
             Email: <input type="text" name="email"><br>
             Password: <input type="password" name="password"><br>
             <input type="submit" value="Submit">
@@ -93,6 +116,13 @@ alert(data);
 	</div>
 
 	<script src="script.js"></script>
+
+  <div id="toDoDisplay">
+
+
+  </div>  
+
+
 
 </body>
 </html>
