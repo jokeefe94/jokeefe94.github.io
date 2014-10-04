@@ -58,6 +58,14 @@ body {
     border-radius: 0 0 5px 5px;
 }
 
+#toDoDisplay {
+    padding: 5px;
+    padding-left:  15px;
+    padding-right: 15px;
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
+}
+
 h1 {
     font: Georgia, serif;
     border-bottom: 3px solid #cc9900;

@@ -28,20 +28,34 @@
         return false;
     }
 
-    $.post("http://recruiting-api.nextcapital.com/users/sign_in", {
+    $.post("http://recruiting-api.nextcapital.com/users/sign_in", 
+    {
       email: x,
       password: y,
-    }, function(data) {
+    }, 
+    function(data) {
+      //console.log(data);
       var api_token = data.api_token;
       var user_id = data.id;
       var toDoListHTML = "";
       for (var i = data.todos.length - 1; i >= 0; i--) {
-         toDoListHTML += getToDo(user_id, api_token,data.todos[i]);
-       };
-     document.getElementById("logIn").innerHTML=toDoListHTML;
-
-    });
-
+        var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+data.todos[i]+"?api_token="+api_token;
+        $.get(requestHTTP, function(data){
+          //console.log(data);
+            toDoListHTML += "<input type=\"checkbox\" checked=\""+data.is_complete+"\" />"+ data.description+ "<br />";
+            if(i <= 1){
+             // toDoListHTML += "</ul>";
+              console.log(toDoListHTML);
+              $("#main").hide();
+              document.getElementById("toDoDisplay").innerHTML=toDoListHTML;
+            }
+       });
+      }
+     //   toDoListHTML += "</ul>";
+     //   console.log(toDoListHTML);
+     //   $("#main").hide();
+     // document.getElementById("toDoDisplay").innerHTML=toDoListHTML;
+   });
     return false;
     
 }
@@ -80,14 +94,19 @@
    return false;
 }
 
-function getToDo(user_id, api_token, id)
-{
-    var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+id+"?api_token="+api_token;
-    $.get(requestHTTP, function(data){
-      return data.description;
-    })
+// function getToDo(user_id, api_token, id)
+// {
+//     var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+id+"?api_token="+api_token;
+//     $.get(requestHTTP, function(data){
+//       console.log(requestHTTP);
+//       console.log(data);
+//       var result = "";
+//       var result = data.description;
+//       console.log(result);
+//       return result;
+//     })
 
-}
+// }
   </script>
 
 </head>
