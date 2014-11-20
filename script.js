@@ -1,6 +1,8 @@
 // document.getElementById("foot01").innerHTML =
 // "<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
 
+alert("Hello");
+
 function initialize() 
   {
     var mapOptions = {
@@ -10,7 +12,7 @@ function initialize()
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
 
-    var input = /** @type {HTMLInputElement} */(
+   var input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
