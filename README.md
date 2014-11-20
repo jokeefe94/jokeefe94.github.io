@@ -4,8 +4,8 @@ A webapp that provides hybrid walking and biking directions for getting a user f
 Works with Google Maps Javascript API and Transport for London's data feed to provide directions and information about the docking stations, respectively.
 
 To Do List:
-Integrate with TfL XML feed.
-Display docking stations as markers.
+1. Integrate with TfL XML feed.
+2. Display docking stations as markers.
 Display available bikes on the marker.
 Display available docks on the marker.
 Switch between those 2 views.
