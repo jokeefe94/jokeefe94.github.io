@@ -4,14 +4,18 @@ A webapp that provides hybrid walking and biking directions for getting a user f
 Works with Google Maps Javascript API and Transport for London's data feed to provide directions and information about the docking stations, respectively.
 
 To Do List:
-1. Integrate with TfL XML feed.
-2. Display docking stations as markers.
-Display available bikes on the marker.
-Display available docks on the marker.
-Switch between those 2 views.
-Find the closest dock station to a point.
-	Dont route people to unavailable or empty stations.
-Retrieve walking directions to closest docking station.
-Biking directions from station to station.
-Tie together the walking to biking to walking directions.
-Optimize finding docking station so that people dont walk out of the way of their journey.
+<ol>
+<li>Integrate with TfL XML feed.</li>
+<li>Display docking stations as markers.</li>
+<li>Display available bikes on the marker.</li>
+<li>Display available docks on the marker.</li>
+<li>Switch between those 2 views.</li>
+<li>Find the closest dock station to a point.</li>
+	<ul>
+	<li>Dont route people to unavailable or empty stations.</li>
+	</ul>
+<li>Retrieve walking directions to closest docking station.</li>
+<li>Biking directions from station to station.</li>
+<li>Tie together the walking to biking to walking directions.</li>
+<li>Optimize finding docking station so that people dont walk out of the way of their journey.</li>
+</ol>
