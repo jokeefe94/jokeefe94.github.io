@@ -1,5 +1,5 @@
-document.getElementById("foot01").innerHTML =
-"<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
+// document.getElementById("foot01").innerHTML =
+// "<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
 
 function initialize() 
   {
@@ -7,10 +7,8 @@ function initialize()
       center: { lat: 51.507227, lng: -0.127211},
       zoom: 12
     };
-    console.log("Starting gmaps")
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
-    console.log("%O", map);
 
     var input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
