@@ -10,24 +10,26 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv9gp29mOcmoBWU4I_7NPVfk-msiFaMm0">
     </script>
     <script type="text/javascript">
-      function initialize() {
+      function initialize() 
+      {
         var mapOptions = {
           center: { lat: 51.5072, lng: 0},
           zoom: 11
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
+
+        var myLatlng = new google.maps.LatLng(51.52168078,-0.130431727);
+
+        // To add the marker to the map, use the 'map' property
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title:"Hello World!"
+        }); 
       }
-
-      var myLatlng = new google.maps.LatLng(51.52168078,-0.130431727);
-
-      // To add the marker to the map, use the 'map' property
-      var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title:"Hello World!"
-      });
       google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
   </head>
   <body>
