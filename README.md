@@ -5,8 +5,8 @@ Works with Google Maps Javascript API and Transport for London's data feed to pr
 
 To Do List:
 <ol>
-	<li>Integrate with TfL XML feed.</li>
-	<li>Display docking stations as markers.</li>
+	<li>Integrate with TfL XML feed. - DONE</li>
+	<li>Display docking stations as markers. - DONE</li>
 	<li>Display available bikes on the marker.</li>
 	<li>Display available docks on the marker.</li>
 	<li>Switch between those 2 views.</li>

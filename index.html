@@ -39,11 +39,13 @@
       { 
          var myLatlng = new google.maps.LatLng(x[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue,x[i].getElementsByTagName("long")[0].childNodes[0].nodeValue);
 
+         var myTitle = x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
+
         // To add the marker to the map, use the 'map' property
           markers[i] = new google.maps.Marker({
           position: myLatlng,
           map: map,
-          title:"Hello World!"
+          title: myTitle
         }); 
       }
     }
