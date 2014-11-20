@@ -1,160 +1,27 @@
+<!-- API Key for GMaps: AIzaSyAv9gp29mOcmoBWU4I_7NPVfk-msiFaMm0 -->
+
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>SuperToDo</title>
-  <link href="site.css" rel="stylesheet">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>
-
-    function validateLogInForm() {
-      //document.getElementById("logIn").innerHTML = "Hello JavaScript!";
-
-    var x = document.forms["logInForm"]["email"].value;
-    var y = document.forms["logInForm"]["password"].value;
-    if (x == null || x == "") {
-        alert("Email must be filled out");
-        return false;
-    }
-    else if (y == null || y == "") {
-        alert("Password must be filled out");
-        return false;
-    }
-
-    var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        alert("Not a valid e-mail address");
-        return false;
-    }
-
-    $.post("http://recruiting-api.nextcapital.com/users/sign_in", 
-    {
-      email: x,
-      password: y,
-    }, 
-    function(data) {
-      //console.log(data);
-      var api_token = data.api_token;
-      var user_id = data.id;
-      var toDoListHTML = "";
-      var getCounter = data.todos.length;
-      for (var i = data.todos.length - 1; i >= 0; i--) 
-      {
-        var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+data.todos[i]+"?api_token="+api_token;
-        $.get(requestHTTP, function(data){
-          getCounter--;
-          //console.log(data);
-          if(data.is_complete)
-          {
-            toDoListHTML += "<input type=\"checkbox\" checked />"+ data.description+ "<br />";
-          }
-          else
-          {
-            toDoListHTML += "<input type=\"checkbox\" />"+ data.description+ "<br />";
-          }
-            if(getCounter <= 0)
-            {
-             // toDoListHTML += "</ul>";
-              console.log(toDoListHTML);
-              $("#main").hide();
-              document.getElementById("toDoDisplay").innerHTML=toDoListHTML;
-            }
-       });
+  <head>
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv9gp29mOcmoBWU4I_7NPVfk-msiFaMm0">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: { lat: -34.397, lng: 150.644},
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
       }
-     //   toDoListHTML += "</ul>";
-     //   console.log(toDoListHTML);
-     //   $("#main").hide();
-     // document.getElementById("toDoDisplay").innerHTML=toDoListHTML;
-   });
-    return false;
-    
-}
-
- function validateRegisterForm() 
- {
-    var x = document.forms["registerForm"]["email"].value;
-    var y = document.forms["registerForm"]["password"].value;
-    if (x == null || x == "") 
-    {
-        alert("Email must be filled out");
-        return false;
-    }
-    else if (y == null || y == "") 
-    {
-        alert("Password must be filled out");
-        return false;
-    }
-
-    var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) 
-    {
-        alert("Please enter a valid e-mail address");
-        return false;
-
-    }
-  
-    $.post("http://recruiting-api.nextcapital.com/users", {
-      email: x,
-      password: y,
-    }, function(data) {
-      alert(data.id);
-    });
-   
-   return false;
-}
-
-
-// function getToDo(user_id, api_token, id)
-// {
-//     var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+id+"?api_token="+api_token;
-//     $.get(requestHTTP, function(data){
-//       console.log(requestHTTP);
-//       console.log(data);
-//       var result = "";
-//       var result = data.description;
-//       console.log(result);
-//       return result;
-//     })
-
-// }
-  </script>
-
-</head>
-
-<body>
-
-
-
-
-	<div id="main">
-  		<h1 id="logIn">Welcome to SuperToDo</h1>
-        <h2>Returning Users, Please Log In Below</h2>
-          <form name="logInForm" onsubmit="return validateLogInForm()">
-            Email: <input type="text" name="email"><br>
-            Password: <input type="password" name="password"><br>
-            <input type="submit" value="Submit">
-          </form>
-
-          <h2>New Users, Please Register Below</h2>
-          <form name="registerForm" id="regForm" onsubmit="return validateRegisterForm()">
-            Email: <input type="text" name="email" id="regEmail"><br>
-            Password: <input type="password" name="password" id="regPassword"><br>
-            <input type="submit" value="Register" id="regButton">
-          </form>
-  		<footer id="foot01"></footer>
-	</div>
-
-	<script src="script.js"></script>
-
-  <div id="toDoDisplay">
-
-
-  </div>  
-
-
-
-</body>
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+<div id="map-canvas"></div>
+  </body>
 </html>
-
