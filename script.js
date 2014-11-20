@@ -7,12 +7,17 @@ function initialize()
       center: { lat: 51.507227, lng: -0.127211},
       zoom: 12
     };
+    console.log("Starting gmaps")
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+    console.log("%O", map);
 
-    var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-	var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */(input));
+    var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var searchBox = new google.maps.places.SearchBox(
+    /** @type {HTMLInputElement} */(input));
 
 
   if (window.XMLHttpRequest)
