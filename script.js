@@ -10,13 +10,6 @@ function initialize()
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
 
-   var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  var searchBox = new google.maps.places.SearchBox(
-    /** @type {HTMLInputElement} */(input));
-
 
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -46,6 +39,13 @@ function initialize()
       title: myTitle
     }); 
   }
+
+  var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var searchBox = new google.maps.places.SearchBox(
+    /** @type {HTMLInputElement} */(input));
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
