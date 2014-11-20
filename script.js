@@ -57,9 +57,7 @@ function initialize()
     	{
 			console.log("%O", place);
     	}
-
-    	map.fitBounds(bounds);
-	}
+	});
 
 
 
