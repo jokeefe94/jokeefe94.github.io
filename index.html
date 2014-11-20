@@ -38,12 +38,23 @@
       var api_token = data.api_token;
       var user_id = data.id;
       var toDoListHTML = "";
-      for (var i = data.todos.length - 1; i >= 0; i--) {
+      var getCounter = data.todos.length;
+      for (var i = data.todos.length - 1; i >= 0; i--) 
+      {
         var requestHTTP = "http://recruiting-api.nextcapital.com/users/" + user_id+"/todos/"+data.todos[i]+"?api_token="+api_token;
         $.get(requestHTTP, function(data){
+          getCounter--;
           //console.log(data);
-            toDoListHTML += "<input type=\"checkbox\" checked=\""+data.is_complete+"\" />"+ data.description+ "<br />";
-            if(i <= 1){
+          if(data.is_complete)
+          {
+            toDoListHTML += "<input type=\"checkbox\" checked />"+ data.description+ "<br />";
+          }
+          else
+          {
+            toDoListHTML += "<input type=\"checkbox\" />"+ data.description+ "<br />";
+          }
+            if(getCounter <= 0)
+            {
              // toDoListHTML += "</ul>";
               console.log(toDoListHTML);
               $("#main").hide();
@@ -93,6 +104,7 @@
    
    return false;
 }
+
 
 // function getToDo(user_id, api_token, id)
 // {
