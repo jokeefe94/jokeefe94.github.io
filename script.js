@@ -7,6 +7,8 @@ function LondonBikes() {
 	var self = this;
 	self.startSearchBox = null;
 	self.endSearchInput = null;
+	self.startLocation = null;
+	self.endLocation = null;
 	self.map = null;
 	self.stations = new Array();
 	self.markers = new Array();
@@ -27,19 +29,20 @@ function LondonBikes() {
 		// Add markers to the map
 		for (var i = 0; i < self.stations.length; i++) {
 			marker = self.stations[i].marker(google, self.map);
-			console.log("%O", marker);
 			self.markers.push(marker);
 		}
 
 		var startSearchInput = (document.getElementById('start-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
+		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 
 		var endSearchInput = (document.getElementById('end-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
 		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
 
-		google.maps.event.addListener(self.startSearchBox, 'places_changed', placesChanged);
+		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
 
@@ -67,22 +70,33 @@ function LondonBikes() {
 	}
 
 	// Called when a user searches for a place in the search box
-	function placesChanged() {
+	function startPlacesChanged() {
 		var places = self.searchBox.getPlaces();
 
 		if (places.length == 0) {
 			return;
 		}
 
-		for (var i = 0; i < places.length; i++) {
-			console.log("%O", places[i]);
+		self.startLocation = places[0];
+		console.log("new start: %O", self.startLocation);
+	}
+
+	function endPlacesChanged() {
+		var places = self.searchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
 		}
+
+		self.endLocation = places[0];
+		console.log("new end: %O", self.endLocation);
 	}
 
 	// Called when the map bounds change
 	function updateBounds() {
 		var bounds = self.map.getBounds();
 		self.startSearchBox.setBounds(bounds);
+		self.endSearchBox.setBounds(bounds);
 	}
 
 	self.initialize = initialize;
