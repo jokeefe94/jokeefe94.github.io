@@ -144,7 +144,6 @@ function LondonBikes() {
 		var dLng = lng2 - lng1;
 		var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLng / 2) * Math.sin(dLng /2) * Math.cos(lat1) * Math.cos(lat2);
 		var c = 2.0 * Math.asin(Math.sqrt(a));
-		console.log("Dist %O -> %O = %f", coord1, coord2, radius*c);
 		return radius*c;
 	}
 
