@@ -111,14 +111,12 @@ function LondonBikes() {
 
 	// This could probably be faster...
 	function findClosestStations(location) {
-		console.log("%O", location);
 		closestIdx = -1;
 		closestDist = Infinity;
 		for (var i = 0; i < self.stations.length; i++) {
 			station = self.stations[i];
 			var latLng1 = {lat : station.lat, lng : station.lng}
 			distance = distBetweenCoords(latLng, location);
-			console.log("Distance:" + distance);
 			if (distance < closestDist) {
 				closestDist = distance;
 				closestIdx = i;
@@ -128,13 +126,14 @@ function LondonBikes() {
 	}
 
 	function distBetweenCoords(coord1, coord2) {
-		var radius = 6371;
+		var radius = 6371.0;
 		var lat1 = degToRad(coord1.lat), lng1 = degToRad(coord1.lng);
 		var lat2 = degToRad(coord2.lat), lng2 = degToRad(coord2.lng);
 		var dLat = lat2 - lat1;
 		var dLng = lng2 - lng1;
 		var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLng / 2) * Math.sin(dLng /2) * Math.cos(lat1) * Math.cos(lat2);
-		var c = 2 * Math.asin(Math.sqrt(a));
+		var c = 2.0 * Math.asin(Math.sqrt(a));
+		console.log("Dist %O -> %O = %f", coord1, coord2, radius*c);
 		return radius*c;
 	}
 
@@ -157,7 +156,6 @@ function Station(tfl_xml) {
 }
 
 Station.prototype.marker = function(google, map) {
-	console.log("%O, %O", google, map);
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(this.lat, this.lng),
 		title: this.name,
