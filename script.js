@@ -32,6 +32,7 @@ function LondonBikes() {
 		// 	self.markers.push(marker);
 		// }
 
+		// Setup the search boxes
 		var startSearchInput = (document.getElementById('start-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
@@ -69,7 +70,7 @@ function LondonBikes() {
 		return stations
 	}
 
-	// Called when a user searches for a place in the search box
+	// Called when a user searches for a place in the start position search box
 	function startPlacesChanged() {
 		var places = self.startSearchBox.getPlaces();
 
@@ -80,17 +81,10 @@ function LondonBikes() {
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
 
-		var searchMarker = new google.maps.Marker({
-			position: self.startLocation.geometry.location,
-			title: "Search Location",
-			map: self.map
-		});
-
-		var latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
-		var station = findClosestStations(latLng);
-		station.marker(google, self.map);
+		findStationAndAddMarker(self.startLocation);
 	}
 
+	// Called when a user searches for a place in the end position search box
 	function endPlacesChanged() {
 		var places = self.endSearchBox.getPlaces();
 
@@ -100,6 +94,22 @@ function LondonBikes() {
 
 		// The location can be found by going to self.endLocation.geometry.location
 		self.endLocation = places[0];
+
+		findStationAndAddMarker(self.endLocation);
+	}
+
+	// Adds a marker to the map for the searched location and the closest bike station
+	function findStationAndAddMarker(loc) {
+		var searchMarker = new google.maps.Marker({
+			position: loc.geometry.location,
+			title: "Search Location",
+			map: self.map
+		});
+		markers.push(searchMarker);
+
+		var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
+		var station = findClosestStations(latLng);
+		markers.push(station.marker(google, self.map));
 	}
 
 	// Called when the map bounds change
@@ -125,6 +135,7 @@ function LondonBikes() {
 		return self.stations[closestIdx];
 	}
 
+	// Finds the distance in km to the closest bike station
 	function distBetweenCoords(coord1, coord2) {
 		var radius = 6371.0;
 		var lat1 = degToRad(coord1.lat), lng1 = degToRad(coord1.lng);
@@ -141,6 +152,7 @@ function LondonBikes() {
 		return deg/180.0 * Math.PI;
 	}
 
+	// The only public function
 	self.initialize = initialize;
 }
 
@@ -155,6 +167,7 @@ function Station(tfl_xml) {
 	this.docks = Number(tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue);
 }
 
+// Creates a marker for the map
 Station.prototype.marker = function(google, map) {
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(this.lat, this.lng),
@@ -171,6 +184,7 @@ Station.prototype.marker = function(google, map) {
 	return marker;
 };
 
+// Creates the info window that is displayed when a user selects a station
 Station.prototype.infoWindow = function(google) {
 	var contentString =  '<div id="content">'+
 		'<div id="siteNotice">'+
