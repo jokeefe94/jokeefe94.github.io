@@ -5,7 +5,8 @@
 function LondonBikes() {
 
 	var self = this;
-	self.searchBox = null;
+	self.startSearchBox = null;
+	self.endSearchInput = null;
 	self.map = null;
 	self.stations = new Array();
 	self.markers = new Array();
@@ -30,11 +31,15 @@ function LondonBikes() {
 			self.markers.push(marker);
 		}
 
-		var searchInput = (document.getElementById('pac-input'));
-		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
-		self.searchBox = new google.maps.places.SearchBox((searchInput));
+		var startSearchInput = (document.getElementById('start-input'));
+		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
+		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
 
-		google.maps.event.addListener(self.searchBox, 'places_changed', placesChanged);
+		var endSearchInput = (document.getElementById('end-input'));
+		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
+		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+
+		google.maps.event.addListener(self.startSearchBox, 'places_changed', placesChanged);
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
 
@@ -77,7 +82,7 @@ function LondonBikes() {
 	// Called when the map bounds change
 	function updateBounds() {
 		var bounds = self.map.getBounds();
-		self.searchBox.setBounds(bounds);
+		self.startSearchBox.setBounds(bounds);
 	}
 
 	self.initialize = initialize;
@@ -101,6 +106,16 @@ Station.prototype.marker = function(google, map) {
 		map: map
 	});
 
+	// Add the info window to the marker
+	var infowindow = this.infoWindow(google);
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map, marker);
+	});
+
+	return marker;
+};
+
+Station.prototype.infoWindow = function(google) {
 	var contentString =  '<div id="content">'+
 		'<div id="siteNotice">'+
 		'</div>'+
@@ -109,13 +124,9 @@ Station.prototype.marker = function(google, map) {
 		'</div>'+
 		'</div>';
 
-	var infowindow = new google.maps.InfoWindow({
-		content: contentString
-	});
-	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.open(map, marker);
-	});
-	return marker;
+		return new google.maps.InfoWindow({
+			content: contentString
+		});
 };
 
 google.maps.event.addDomListener(window, 'load', function() {
