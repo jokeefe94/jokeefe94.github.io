@@ -105,11 +105,11 @@ function LondonBikes() {
 			title: "Search Location",
 			map: self.map
 		});
-		markers.push(searchMarker);
+		self.markers.push(searchMarker);
 
 		var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
 		var station = findClosestStations(latLng);
-		markers.push(station.marker(google, self.map));
+		self.markers.push(station.marker(google, self.map));
 	}
 
 	// Called when the map bounds change
