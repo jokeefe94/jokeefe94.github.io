@@ -86,8 +86,8 @@ function LondonBikes() {
 			map: self.map
 		});
 
-		latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
-		station = findClosestStations(latLng);
+		var latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
+		var station = findClosestStations(latLng);
 		station.marker(google, self.map);
 	}
 
@@ -111,12 +111,12 @@ function LondonBikes() {
 
 	// This could probably be faster...
 	function findClosestStations(location) {
-		closestIdx = -1;
-		closestDist = Infinity;
+		var closestIdx = -1;
+		var closestDist = Infinity;
 		for (var i = 0; i < self.stations.length; i++) {
-			station = self.stations[i];
-			var latLng1 = {lat : station.lat, lng : station.lng}
-			distance = distBetweenCoords(latLng, location);
+			var station = self.stations[i];
+			var latLng = {lat : station.lat, lng : station.lng}
+			var distance = distBetweenCoords(latLng, location);
 			if (distance < closestDist) {
 				closestDist = distance;
 				closestIdx = i;
