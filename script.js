@@ -82,7 +82,7 @@ function LondonBikes() {
 
 		var searchMarker = new google.maps.Marker({
 			position: places.geometry.location,
-			title: "Search Location"
+			title: "Search Location",
 			map: self.map
 		});
 
