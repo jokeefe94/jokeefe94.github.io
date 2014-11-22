@@ -106,7 +106,7 @@ Station.prototype.marker = function(google, map) {
 		'</div>'+
 		'<h1 id="firstHeading" class="firstHeading"' + this.name + '</h1>'+
 		'<div id="bodyContent">'+
-		this.bikes + ' / ' + this.docks +
+		'<p>' + this.bikes + ' / ' + this.docks + '</p>' +
 		'</div>'+
 		'</div>';
 
