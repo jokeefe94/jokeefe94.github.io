@@ -23,13 +23,15 @@ function LondonBikes() {
 		};
 		self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+		// Add markers to the map
 		for (var i = 0; i < self.stations.length; i++) {
-			self.markers.push(self.stations[i].marker());
+			marker = self.stations[i].marker();
+			console.log("%O", marker);
+			self.markers.push(marker);
 		}
 
 		var searchInput = (document.getElementById('pac-input'));
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
 		self.searchBox = new google.maps.places.SearchBox((input));
 
 		google.maps.event.addListener(self.searchBox, 'places_changed', placesChanged);
