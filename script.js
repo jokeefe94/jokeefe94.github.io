@@ -118,7 +118,7 @@ function LondonBikes() {
 	}
 
 	function distBetweenCoords(coord1, coord2) {
-		var radis = 6371;
+		var radius = 6371;
 		var lat1 = degToRad(coord1.lat), lng1 = degToRad(coord1.lng);
 		var lat2 = degToRad(coord2.lat), lng2 = degToRad(coord2.lng);
 		var dLat = lat2 - lat1;
