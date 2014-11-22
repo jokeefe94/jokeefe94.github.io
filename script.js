@@ -100,8 +100,18 @@ Station.prototype.marker = function(google, map) {
 		title: this.name,
 		map: map
 	});
+
+	var contentString =  '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h1 id="firstHeading" class="firstHeading"' + this.name + '</h1>'+
+		'<div id="bodyContent">'+
+		this.bikes + ' / ' + this.docks +
+		'</div>'+
+		'</div>';
+
 	var infowindow = new google.maps.InfoWindow({
-		content: this.name + ' ' + this.bikes + "/" + this.docks
+		content: contentString
 	});
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.open(map, marker);
