@@ -95,6 +95,8 @@ function LondonBikes() {
 		// The location can be found by going to self.endLocation.geometry.location
 		self.endLocation = places[0];
 
+		console.log("%O", self.endLocation);
+
 		findStationAndAddMarker(self.endLocation);
 	}
 
