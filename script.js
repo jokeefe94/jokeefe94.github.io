@@ -71,7 +71,7 @@ function LondonBikes() {
 
 	// Called when a user searches for a place in the search box
 	function startPlacesChanged() {
-		var places = self.searchBox.getPlaces();
+		var places = self.startSearchBox.getPlaces();
 
 		if (places.length == 0) {
 			return;
@@ -82,7 +82,7 @@ function LondonBikes() {
 	}
 
 	function endPlacesChanged() {
-		var places = self.searchBox.getPlaces();
+		var places = self.endSearchBox.getPlaces();
 
 		if (places.length == 0) {
 			return;
