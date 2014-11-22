@@ -114,7 +114,7 @@ function LondonBikes() {
 				closestIdx = i;
 			}
 		}
-		return stations[closestIdx];
+		return self.stations[closestIdx];
 	}
 
 	function distBetweenCoords(coord1, coord2) {
