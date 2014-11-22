@@ -111,13 +111,14 @@ function LondonBikes() {
 
 	// This could probably be faster...
 	function findClosestStations(location) {
+		console.log("%O", location);
 		closestIdx = -1;
 		closestDist = Infinity;
 		for (var i = 0; i < self.stations.length; i++) {
 			station = self.stations[i];
 			var latLng1 = {lat : station.lat, lng : station.lng}
 			distance = distBetweenCoords(latLng, location);
-			console.log("Distance: %f" + distance);
+			console.log("Distance:" + distance);
 			if (distance < closestDist) {
 				closestDist = distance;
 				closestIdx = i;
