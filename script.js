@@ -106,7 +106,7 @@ function LondonBikes() {
 		closestIdx = 0;
 		closestDist = 0;
 		for (var i = 0; i < self.stations.length; i++) {
-			station = stations[i];
+			station = self.stations[i];
 			var latLng = {lat : station.lat, lng : station.lng}
 			distance = distBetweenCoords(latLng, location);
 			if (distance < closestDist) {
