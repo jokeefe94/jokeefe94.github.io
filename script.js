@@ -80,7 +80,7 @@ function LondonBikes() {
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
 		station = findClosestStations(self.startLocation.geometry.location);
-		station.marker(self.map);
+		station.marker(google, self.map);
 	}
 
 	function endPlacesChanged() {
