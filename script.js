@@ -79,7 +79,6 @@ function LondonBikes() {
 
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
-		console.log("%O", self.startLocation.geometry.location.lat);
 
 		var searchMarker = new google.maps.Marker({
 			position: self.startLocation.geometry.location,
@@ -87,7 +86,8 @@ function LondonBikes() {
 			map: self.map
 		});
 
-		station = findClosestStations(self.startLocation.geometry.location);
+		latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
+		station = findClosestStations(latLng);
 		station.marker(google, self.map);
 	}
 
@@ -115,7 +115,7 @@ function LondonBikes() {
 		closestDist = Infinity;
 		for (var i = 0; i < self.stations.length; i++) {
 			station = self.stations[i];
-			var latLng = {lat : station.lat, lng : station.lng}
+			var latLng1 = {lat : station.lat, lng : station.lng}
 			distance = distBetweenCoords(latLng, location);
 			console.log("Distance: %f" + distance);
 			if (distance < closestDist) {
