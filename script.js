@@ -148,11 +148,11 @@ function LondonBikes() {
 function Station(tfl_xml) {
 	this.stationId = tfl_xml.getElementsByTagName("id")[0].childNodes[0].nodeValue;
 	this.name = tfl_xml.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-	this.lat = tfl_xml.getElementsByTagName("lat")[0].childNodes[0].nodeValue;
-	this.lng = tfl_xml.getElementsByTagName("long")[0].childNodes[0].nodeValue;
-	this.bikes = tfl_xml.getElementsByTagName("nbBikes")[0].childNodes[0].nodeValue;
-	this.emptyBikes = tfl_xml.getElementsByTagName("nbEmptyDocks")[0].childNodes[0].nodeValue;
-	this.docks = tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue;
+	this.lat = Number(tfl_xml.getElementsByTagName("lat")[0].childNodes[0].nodeValue);
+	this.lng = Number(tfl_xml.getElementsByTagName("long")[0].childNodes[0].nodeValue);
+	this.bikes = Number(tfl_xml.getElementsByTagName("nbBikes")[0].childNodes[0].nodeValue);
+	this.emptyBikes = Number(tfl_xml.getElementsByTagName("nbEmptyDocks")[0].childNodes[0].nodeValue);
+	this.docks = Number(tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue);
 }
 
 Station.prototype.marker = function(google, map) {
