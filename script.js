@@ -25,7 +25,7 @@ function LondonBikes() {
 
 		// Add markers to the map
 		for (var i = 0; i < self.stations.length; i++) {
-			marker = self.stations[i].marker(self.map);
+			marker = self.stations[i].marker(google, self.map);
 			console.log("%O", marker);
 			self.markers.push(marker);
 		}
@@ -94,12 +94,19 @@ function Station(tfl_xml) {
 	this.docks = tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue;
 }
 
-Station.prototype.marker = function(map) {
-	return new google.maps.Marker({
+Station.prototype.marker = function(google, map) {
+	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(this.lat, this.lng),
 		title: this.name,
 		map: map
 	});
+	var infowindow = new google.maps.InfoWindow({
+		content: this.name + ' ' + this.bikes + "/" + this.docks
+	});
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map, marker);
+	});
+	return marker;
 };
 
 google.maps.event.addDomListener(window, 'load', function() {
