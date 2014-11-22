@@ -104,7 +104,7 @@ Station.prototype.marker = function(google, map) {
 	var contentString =  '<div id="content">'+
 		'<div id="siteNotice">'+
 		'</div>'+
-		'<p><b>' + this.name + '</b></p><br/>'+
+		'<p><b>' + this.name + '</b></p>'+
 		'<p>' + this.bikes + ' / ' + this.docks + '</p>' +
 		'</div>'+
 		'</div>';
