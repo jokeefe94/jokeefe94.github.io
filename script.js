@@ -27,10 +27,10 @@ function LondonBikes() {
 		self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 		// Add markers to the map
-		for (var i = 0; i < self.stations.length; i++) {
-			marker = self.stations[i].marker(google, self.map);
-			self.markers.push(marker);
-		}
+		// for (var i = 0; i < self.stations.length; i++) {
+		// 	marker = self.stations[i].marker(google, self.map);
+		// 	self.markers.push(marker);
+		// }
 
 		var startSearchInput = (document.getElementById('start-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
@@ -77,8 +77,10 @@ function LondonBikes() {
 			return;
 		}
 
+		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
-		console.log("new start: %O", self.startLocation);
+		station = findClosestStations(self.startLocation.geometry.location);
+		station.marker(self.map);
 	}
 
 	function endPlacesChanged() {
@@ -88,8 +90,8 @@ function LondonBikes() {
 			return;
 		}
 
+		// The location can be found by going to self.endLocation.geometry.location
 		self.endLocation = places[0];
-		console.log("new end: %O", self.endLocation);
 	}
 
 	// Called when the map bounds change
@@ -97,6 +99,37 @@ function LondonBikes() {
 		var bounds = self.map.getBounds();
 		self.startSearchBox.setBounds(bounds);
 		self.endSearchBox.setBounds(bounds);
+	}
+
+	// This could probably be faster...
+	function findClosestStations(location) {
+		closestIdx = 0;
+		closestDist = 0;
+		for (var i = 0; i < self.stations.length; i++) {
+			station = stations[i];
+			var latLng = {lat : station.lat, lng : station.lng}
+			distance = distBetweenCoords(latLng, location);
+			if (distance < closestDist) {
+				closestDist = distance;
+				closestIdx = i;
+			}
+		}
+		return stations[closestIdx];
+	}
+
+	function distBetweenCoords(coord1, coord2) {
+		var radis = 6371;
+		var lat1 = degToRad(coord1.lat), lng1 = degToRad(coord1.lng);
+		var lat2 = degToRad(coord2.lat), lng2 = degToRad(coord2.lng);
+		var dLat = lat2 - lat1;
+		var dLng = lng2 - lng1;
+		var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLon / 2) * Math.sin(dLon /2) * Math.cos(lat1) * Math.cos(lat2);
+		var c = 2 * Math.asin(Math.sqrt(a));
+		return radius*c;
+	}
+
+	function degToRad(deg) {
+		return deg/180.0 * Math.PI;
 	}
 
 	self.initialize = initialize;
