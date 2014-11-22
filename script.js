@@ -112,6 +112,7 @@ function LondonBikes() {
 	function findClosestStations(location) {
 		closestIdx = -1;
 		closestDist = Infinity;
+		console.log("%O", self.stations);
 		for (var i = 0; i < self.stations.length; i++) {
 			station = self.stations[i];
 			var latLng = {lat : station.lat, lng : station.lng}
