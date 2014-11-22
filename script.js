@@ -79,7 +79,7 @@ function LondonBikes() {
 
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
-		console.log("%O", self.startLocation);
+		console.log("%O", self.startLocation.geometry.location.lat);
 
 		var searchMarker = new google.maps.Marker({
 			position: self.startLocation.geometry.location,
