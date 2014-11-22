@@ -2,107 +2,105 @@
 // "<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
 
 
+function LondonBikes() {
+
+	var self = this;
+	self.searchBox = null;
+	self.map = null;
+	self.stations = new Array();
+	self.markers = new Array();
+
+	var initialize = function(google) {
+		self.stations = loadStations();
+		initializeMap(google);
+	}
+
+	// Setup google maps
+	function initializeMap(google) {
+		var mapOptions = {
+			center: { lat: 51.507227, lng: -0.127211},
+			zoom: 12
+		};
+		self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+		for (var i = 0; i < self.stations.length; i++) {
+			self.markers.push(self.stations[i].marker());
+		}
+
+		var searchInput = (document.getElementById('pac-input'));
+		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+		self.searchBox = new google.maps.places.SearchBox((input));
+
+		google.maps.event.addListener(self.searchBox, 'places_changed', placesChanged);
+		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
+	}
+
+	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
+	function loadStations() {
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("GET","http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml",false);
+		xmlhttp.send();
+		xmlDoc=xmlhttp.responseXML; 
+
+		var stationsXml=xmlDoc.getElementsByTagName("station");
+		var stations = new Array()
+		for (var i=0; i < stationsXml.length; i++) 
+		{
+			stations.push(new Station(stationsXml[i]))
+		}
+		return stations
+	}
+
+	// Called when a user searches for a place in the search box
+	function placesChanged() {
+		var places = self.searchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
+		}
+
+		for (var i = 0; i < places.length; i++) {
+			console.log("%O", places[i]);
+		}
+	}
+
+	// Called when the map bounds change
+	function updateBounds() {
+		var bounds = self.map.getBounds();
+		self.searchBox.setBounds(bounds);
+	}
+
+	self.initialize = initialize;
+}
+
 // Represents a bike station in London
-function Station(tfl_xml) 
-{
+function Station(tfl_xml) {
 	this.stationId = tfl_xml.getElementsByTagName("id")[0].childNodes[0].nodeValue;
 	this.name = tfl_xml.getElementsByTagName("name")[0].childNodes[0].nodeValue;
 	this.lat = tfl_xml.getElementsByTagName("lat")[0].childNodes[0].nodeValue;
-	this.lon = tfl_xml.getElementsByTagName("long")[0].childNodes[0].nodeValue;
+	this.lng = tfl_xml.getElementsByTagName("long")[0].childNodes[0].nodeValue;
 	this.bikes = tfl_xml.getElementsByTagName("nbBikes")[0].childNodes[0].nodeValue;
 	this.emptyBikes = tfl_xml.getElementsByTagName("nbEmptyDocks")[0].childNodes[0].nodeValue;
 	this.docks = tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue;
 }
 
-
-function loadStations() 
-{
-	if (window.XMLHttpRequest)
-	{// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
-	}
-	else
-	{// code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.open("GET","http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml",false);
-	xmlhttp.send();
-	xmlDoc=xmlhttp.responseXML; 
-
-	var stationsXml=xmlDoc.getElementsByTagName("station");
-	var stations = new Array()
-	for (i=0; i < stationsXml.length; i++) 
-	{
-		stations.push(new Station(stationsXml[i]))
-	}
-	return stations
-}
-
-function initialize() 
-{
-	var mapOptions = {
-		center: { lat: 51.507227, lng: -0.127211},
-		zoom: 12
-	};
-	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-	if (window.XMLHttpRequest)
-	{// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
-	}
-	else
-	{// code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.open("GET","http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml",false);
-	xmlhttp.send();
-	xmlDoc=xmlhttp.responseXML; 
-
-	var x=xmlDoc.getElementsByTagName("station");
-
-	var markers = new Array();
-	for (i=0;i<x.length;i++)
-	{ 
-		var myLatlng = new google.maps.LatLng(x[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue,x[i].getElementsByTagName("long")[0].childNodes[0].nodeValue);
-		var myTitle = x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
-
-		// To add the marker to the map, use the 'map' property
-		markers[i] = new google.maps.Marker({
-			position: myLatlng,
-			map: map,
-			title: myTitle
-		}); 
-	}
-
-	var input = /** @type {HTMLInputElement} */(
-	document.getElementById('pac-input'));
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-	var searchBox = new google.maps.places.SearchBox(
-	/** @type {HTMLInputElement} */(input));
-
-	google.maps.event.addListener(searchBox, 'places_changed', function() 
-	{
-		var places = searchBox.getPlaces();
-
-		if (places.length == 0) 
-		{
-			return;
-		}
-
-    	for (var i = 0, place; place = places[i]; i++) 
-    	{
-			console.log("%O", place);
-    	}
+Station.prototype.marker = function(map) {
+	return new google.maps.Marker({
+		position: new google.maps.LatLng(this.lat, this.lng),
+		title: this.name,
+		map: map
 	});
+};
 
-
-
-	google.maps.event.addListener(map, 'bounds_changed', function() {
-    	var bounds = map.getBounds();
-    	searchBox.setBounds(bounds);
-  	});
-
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', function() {
+	var app = new LondonBikes();
+	app.initialize(google);
+});
