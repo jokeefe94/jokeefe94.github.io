@@ -25,14 +25,14 @@ function LondonBikes() {
 
 		// Add markers to the map
 		for (var i = 0; i < self.stations.length; i++) {
-			marker = self.stations[i].marker();
+			marker = self.stations[i].marker(self.map);
 			console.log("%O", marker);
 			self.markers.push(marker);
 		}
 
 		var searchInput = (document.getElementById('pac-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
-		self.searchBox = new google.maps.places.SearchBox((input));
+		self.searchBox = new google.maps.places.SearchBox((searchInput));
 
 		google.maps.event.addListener(self.searchBox, 'places_changed', placesChanged);
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
