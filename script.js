@@ -79,6 +79,13 @@ function LondonBikes() {
 
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
+
+		var searchMarker = new google.maps.Marker({
+			position: places.geometry.location,
+			title: "Search Location"
+			map: self.map
+		});
+
 		station = findClosestStations(self.startLocation.geometry.location);
 		station.marker(google, self.map);
 	}
