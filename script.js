@@ -81,7 +81,7 @@ function LondonBikes() {
 		self.startLocation = places[0];
 
 		var searchMarker = new google.maps.Marker({
-			position: places.geometry.location,
+			position: self.startLocation.geometry.location,
 			title: "Search Location",
 			map: self.map
 		});
