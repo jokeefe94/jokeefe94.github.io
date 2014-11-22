@@ -147,6 +147,7 @@ function Station(tfl_xml) {
 }
 
 Station.prototype.marker = function(google, map) {
+	console.log("%O, %O", google, map);
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(this.lat, this.lng),
 		title: this.name,
