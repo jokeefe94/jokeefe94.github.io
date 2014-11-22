@@ -6,9 +6,9 @@ function LondonBikes() {
 
 	var self = this;
 	self.startSearchBox = null;
-	self.endSearchInput = null;
+	// self.endSearchInput = null;
 	self.startLocation = null;
-	self.endLocation = null;
+	// self.endLocation = null;
 	self.map = null;
 	self.stations = new Array();
 	self.markers = new Array();
@@ -38,10 +38,10 @@ function LondonBikes() {
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
 		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 
-		var endSearchInput = (document.getElementById('end-input'));
-		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
-		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
-		google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
+		// var endSearchInput = (document.getElementById('end-input'));
+		// self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
+		// self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		// google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
 
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
@@ -85,20 +85,18 @@ function LondonBikes() {
 	}
 
 	// Called when a user searches for a place in the end position search box
-	function endPlacesChanged() {
-		var places = self.endSearchBox.getPlaces();
+	// function endPlacesChanged() {
+	// 	var places = self.endSearchBox.getPlaces();
 
-		if (places.length == 0) {
-			return;
-		}
+	// 	if (places.length == 0) {
+	// 		return;
+	// 	}
 
-		// The location can be found by going to self.endLocation.geometry.location
-		self.endLocation = places[0];
+	// 	// The location can be found by going to self.endLocation.geometry.location
+	// 	self.endLocation = places[0];
 
-		console.log("%O", self.endLocation);
-
-		findStationAndAddMarker(self.endLocation);
-	}
+	// 	findStationAndAddMarker(self.endLocation);
+	// }
 
 	// Adds a marker to the map for the searched location and the closest bike station
 	function findStationAndAddMarker(loc) {
@@ -118,7 +116,7 @@ function LondonBikes() {
 	function updateBounds() {
 		var bounds = self.map.getBounds();
 		self.startSearchBox.setBounds(bounds);
-		self.endSearchBox.setBounds(bounds);
+		// self.endSearchBox.setBounds(bounds);
 	}
 
 	// This could probably be faster...
