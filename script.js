@@ -231,18 +231,14 @@ function LondonBikes() {
 	}
 
 	function stationLatLngStr(station) {
-		return "%f,%f", station.lat, station.lng;
-	}
-
-	function locationLatLngStr(location) {
-		return location.geometry.location.toString();
+		return new google.maps.LatLng(station.lat, station.lng);
 	}
 
 	function getDirections() {
 		if (canGetDirections()) {
 
 			startWalkingRoute = {
-				origin: locationLatLngStr(self.startLocation),
+				origin: self.startLocation.geometry.location,
 				destination: stationLatLngStr(self.startStation),
 				travelMode: google.maps.TravelMode.WALKING
 			};
@@ -255,7 +251,7 @@ function LondonBikes() {
 
 			endWalkingRoute = {
 				origin: stationLatLngStr(self.endStation),
-				destination: locationLatLngStr(self.endLocation),
+				destination: self.endLocation.geometry.location,
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
