@@ -96,20 +96,6 @@ function LondonBikes() {
 		});
 	}
 
-	var removeAllMarkers = function() {
-		for (var i = 0; i < self.markers.length; i++) {
-			self.markers[i].setMap(null);
-		}
-		self.markers = [];
-	}
-
-	var showAllStations = function() {
-		for (var i = 0; i < self.stations.length; i++) {
-			marker = self.stations[i].marker(google, self.map);
-			self.markers.push(marker);
-		}
-	}
-
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
 	function loadStations() {
 		if (window.XMLHttpRequest)
@@ -281,7 +267,23 @@ function LondonBikes() {
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(testBtnDiv);
 	}
 
-	// The only public function
+	// Removes markers from the page
+	var removeAllMarkers = function() {
+		for (var i = 0; i < self.markers.length; i++) {
+			self.markers[i].setMap(null);
+		}
+		self.markers = [];
+	}
+
+	// Shows all the stations on the map
+	var showAllStations = function() {
+		for (var i = 0; i < self.stations.length; i++) {
+			marker = self.stations[i].marker(google, self.map);
+			self.markers.push(marker);
+		}
+	}
+
+	// Public Methods
 	self.initialize = initialize;
 	self.removeAllMarkers = removeAllMarkers;
 	self.showAllStations = showAllStations;
