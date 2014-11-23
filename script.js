@@ -108,6 +108,7 @@ function LondonBikes() {
 	function showAllStations() {
 		for (var i = 0; i < self.stations.length; i++) {
 			marker = self.stations[i].marker(google, self.map);
+			console.log("%O", marker);
 			self.markers.push(marker);
 		}
 	}
