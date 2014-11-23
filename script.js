@@ -235,7 +235,7 @@ function LondonBikes() {
 	}
 
 	function locationLatLngStr(location) {
-		return "%f,%f", location.geometry.location.lat(), location.geometry.location.lng();
+		return location.geometry.location.toString();
 	}
 
 	function getDirections() {
