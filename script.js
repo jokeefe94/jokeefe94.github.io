@@ -33,6 +33,7 @@ function LondonBikes() {
 		initializeData();
 		initializeMap(google);
 		initializeDirections(google);
+		addTestButton();
 	}
 
 	// Loads station data
@@ -206,6 +207,10 @@ function LondonBikes() {
 		return radius*c;
 	}
 
+	function degToRad(deg) {
+		return deg/180.0 * Math.PI;
+	}
+
 	// Checks if the user has given enough information to get directions
 	function canGetDirections() {
 		return (self.startLocation !== null) && (self.startStation !== null) && (self.endLocation !== null) && (self.endStation !== null);
@@ -250,13 +255,49 @@ function LondonBikes() {
 		}
 	}
 
-	function degToRad(deg) {
-		return deg/180.0 * Math.PI;
+	function addTestButton() {
+		var testBtnDiv = document.createElement('div');
+		var testControl = new TestControl(testBtnDiv, self.map);
+		testBtnDiv.index = 1;
+		self.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(testBtnDiv);
 	}
 
 	// The only public function
 	self.initialize = initialize;
 }
+
+function TestControl(controlDiv, map) {
+	// Set CSS styles for the DIV containing the control
+	// Setting padding to 5 px will offset the control
+	// from the edge of the map
+	controlDiv.style.padding = '5px';
+
+	// Set CSS for the control border
+	var controlUI = document.createElement('div');
+	controlUI.style.backgroundColor = 'white';
+	controlUI.style.borderStyle = 'solid';
+	controlUI.style.borderWidth = '2px';
+	controlUI.style.cursor = 'pointer';
+	controlUI.style.textAlign = 'center';
+	controlUI.title = 'Click to test a button';
+	controlDiv.appendChild(controlUI);
+
+	// Set CSS for the control interior
+	var controlText = document.createElement('div');
+	controlText.style.fontFamily = 'Arial,sans-serif';
+	controlText.style.fontSize = '12px';
+	controlText.style.paddingLeft = '4px';
+	controlText.style.paddingRight = '4px';
+	controlText.innerHTML = '<b>Test</b>';
+	controlUI.appendChild(controlText);
+
+	// Setup the click event listeners: simply set the map to
+	// Chicago
+	google.maps.event.addDomListener(controlUI, 'click', function() {
+		console.log("Clicked!!!");
+	});
+}
+
 
 // Represents a bike station in London
 function Station(tfl_xml) {
