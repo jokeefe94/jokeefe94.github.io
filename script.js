@@ -6,7 +6,7 @@ function LondonBikes() {
 
 	var self = this;
 	self.startSearchBox = null;
-	self.endSearchInput = null;
+	self.endSearchBox = null;
 	self.startLocation = null;
 	self.endLocation = null;
 	self.map = null;
@@ -46,7 +46,7 @@ function LondonBikes() {
 
 		var endSearchInput = (document.getElementById('end-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
-		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		self.endSearchBox = new google.maps.places.SearchBox((endSearchInput));
 		google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
@@ -101,20 +101,6 @@ function LondonBikes() {
 
 		findStationAndAddMarker(self.endLocation);
 	}
-
-	// Called when a user searches for a place in the end position search box
-	// function endPlacesChanged() {
-	// 	var places = self.endSearchBox.getPlaces();
-
-	// 	if (places.length == 0) {
-	// 		return;
-	// 	}
-
-	// 	// The location can be found by going to self.endLocation.geometry.location
-	// 	self.endLocation = places[0];
-
-	// 	findStationAndAddMarker(self.endLocation);
-	// }
 
 	// Adds a marker to the map for the searched location and the closest bike station
 	function findStationAndAddMarker(loc) {
