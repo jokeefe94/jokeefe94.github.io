@@ -259,7 +259,7 @@ function LondonBikes() {
 		var testBtnDiv = document.createElement('div');
 		
 		var testControl = new TestControl(testBtnDiv, function() {
-			self.getDirections();
+			getDirections();
 		});
 		
 		testBtnDiv.index = 1;
