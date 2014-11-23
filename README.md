@@ -15,8 +15,8 @@ To Do List:
 			<li>Dont route people to unavailable or empty stations.</li>
 		</ul>
 	</li>
-	<li>Retrieve walking directions to closest docking station.</li>
-	<li>Biking directions from station to station.</li>
-	<li>Tie together the walking to biking to walking directions.</li>
+	<li>Retrieve walking directions to closest docking station. - DONE</li>
+	<li>Biking directions from station to station. - DONE</li>
+	<li>Tie together the walking to biking to walking directions. - DONE</li>
 	<li>Optimize finding docking station so that people dont walk out of the way of their journey.</li>
 </ol>
