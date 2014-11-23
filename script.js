@@ -98,14 +98,14 @@ function LondonBikes() {
 		});
 	}
 
-	function removeAllMarkers() {
+	var removeAllMarkers = function() {
 		for (var i = 0; i < self.markers.length; i++) {
 			self.markers[i].setMap(null);
 		}
 		self.markers = [];
 	}
 
-	function showAllStations() {
+	var showAllStations = function() {
 		for (var i = 0; i < self.stations.length; i++) {
 			marker = self.stations[i].marker(google, self.map);
 			self.markers.push(marker);
@@ -286,7 +286,7 @@ function LondonBikes() {
 	// The only public function
 	self.initialize = initialize;
 	self.removeAllMarkers = removeAllMarkers;
-	//self.showAllStations = showAllStations;
+	self.showAllStations = showAllStations;
 }
 
 function TestControl(controlDiv, onclick) {
