@@ -19,7 +19,7 @@ function LondonBikes() {
 		window.setInterval(function() {
 			console.log("Reloaded stations");
 			self.stations = loadStations();
-		}, 180);
+		}, 180000);
 
 		initializeMap(google);
 	}
