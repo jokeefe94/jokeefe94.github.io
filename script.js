@@ -234,7 +234,7 @@ function LondonBikes() {
 		if (canGetDirections()) {
 
 			startWalkingRoute = {
-				origin: startLocation.geometry.location,
+				origin: self.startLocation.geometry.location,
 				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
 				travelMode: google.TravelMode.WALKING
 			};
@@ -247,7 +247,7 @@ function LondonBikes() {
 
 			endWalkingRoute = {
 				origin: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
-				destination: endLocation.geometry.location,
+				destination: self.endLocation.geometry.location,
 				travelMode: google.TravelMode.WALKING
 			};
 
