@@ -1,15 +1,19 @@
 // document.getElementById("foot01").innerHTML =
 // "<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
 
-
 function LondonBikes() {
 
 	var self = this;
 
 	self.settings = {
-		dataUpdateFrequency: 180000, // 3 min
-		walkingStrokeColor: 'red',
-		bikingStrokeColor: 'blue'
+		dataUpdateFrequency	: 180000, // 3 min
+		walkingStrokeColor	: 'red',
+		bikingStrokeColor	: 'blue'
+	};
+
+	self.StationPurpose = {
+		RETRIEVE	: 'retrieve',	// Pick up a bike
+		DOCK 		: 'dock',			// Return a bike
 	};
 
 	self.map = null;
@@ -21,6 +25,7 @@ function LondonBikes() {
 	self.endLocation = null;
 	self.endStation = null;
 
+	// These may not need to be shared with the entire class
 	self.directionsService = null;
 	self.startWalkingDirectionsDisplay = null;
 	self.bikingDirectionsDisplay = null;
@@ -131,7 +136,7 @@ function LondonBikes() {
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
 		var latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
-		self.startStation = findClosestStations(latLng);
+		self.startStation = findClosestStations(latLng, self.StationPurpose.RETRIEVE);
 
 		addMarkerToLocationAndStation(self.startLocation, self.startStation);
 	}
@@ -146,7 +151,7 @@ function LondonBikes() {
 		// The location can be found by going to self.startLocation.geometry.location
 		self.endLocation = places[0];
 		var latLng = {lat:self.endLocation.geometry.location.lat(), lng: self.endLocation.geometry.location.lng()};
-		self.endStation = findClosestStations(latLng);
+		self.endStation = findClosestStations(latLng, self.StationPurpose.DOCK);
 
 		addMarkerToLocationAndStation(self.endLocation, self.endStation);
 	}
@@ -169,11 +174,21 @@ function LondonBikes() {
 	}
 
 	// This could probably be faster...
-	function findClosestStations(location) {
+	// purpose should be from self.StationPurpose
+	function findClosestStations(location, purpose) {
 		var closestIdx = -1;
 		var closestDist = Infinity;
 		for (var i = 0; i < self.stations.length; i++) {
 			var station = self.stations[i];
+
+			// Check if station is available for desired purpose
+			if (purpose == self.StationPurpose.RETRIEVE && station.bikes <= 0) {
+				continue;
+			}
+			else if (purpose == self.StationPurpose.DOCK && station.emptyDocks <= 0) {
+				continue;
+			}
+			
 			var latLng = {lat : station.lat, lng : station.lng}
 			var distance = distBetweenCoords(latLng, location);
 			if (distance < closestDist) {
@@ -325,7 +340,7 @@ function Station(tfl_xml) {
 	this.lat = Number(tfl_xml.getElementsByTagName("lat")[0].childNodes[0].nodeValue);
 	this.lng = Number(tfl_xml.getElementsByTagName("long")[0].childNodes[0].nodeValue);
 	this.bikes = Number(tfl_xml.getElementsByTagName("nbBikes")[0].childNodes[0].nodeValue);
-	this.emptyBikes = Number(tfl_xml.getElementsByTagName("nbEmptyDocks")[0].childNodes[0].nodeValue);
+	this.emptyDocks = Number(tfl_xml.getElementsByTagName("nbEmptyDocks")[0].childNodes[0].nodeValue);
 	this.docks = Number(tfl_xml.getElementsByTagName("nbDocks")[0].childNodes[0].nodeValue);
 }
 
