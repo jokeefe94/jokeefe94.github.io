@@ -221,8 +221,6 @@ function LondonBikes() {
 	function getDirections() {
 		if (canGetDirections()) {
 
-			removeAllMarkers();
-
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
 				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lng),
@@ -263,6 +261,11 @@ function LondonBikes() {
 				}
 			});
 
+			// Remove markers added if the directions are successful
+			if (leggesAdded == 3) {
+				removeAllMarkers();
+			}
+
 		}
 	}
 
@@ -274,7 +277,7 @@ function LondonBikes() {
 		});
 		
 		testBtnDiv.index = 1;
-		self.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(testBtnDiv);
+		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(testBtnDiv);
 	}
 
 	// The only public function
@@ -303,7 +306,7 @@ function TestControl(controlDiv, onclick) {
 	controlText.style.fontSize = '12px';
 	controlText.style.paddingLeft = '4px';
 	controlText.style.paddingRight = '4px';
-	controlText.innerHTML = '<b>Test</b>';
+	controlText.innerHTML = '<b>Get Directions!</b>';
 	controlUI.appendChild(controlText);
 
 	google.maps.event.addDomListener(controlUI, 'click', onclick);
