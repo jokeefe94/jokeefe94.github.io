@@ -19,7 +19,7 @@ function LondonBikes() {
 		window.setInterval(function() {
 			console.log("Reloaded stations");
 			self.stations = loadStations();
-		}, 180000);
+		}, 180);
 
 		initializeMap(google);
 	}
@@ -42,13 +42,14 @@ function LondonBikes() {
 		var startSearchInput = (document.getElementById('start-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
-		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
+		
 
 		var endSearchInput = (document.getElementById('end-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
 		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		
 		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
-
+		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
