@@ -10,9 +10,9 @@ To Do List:
 	<li>Display available bikes on the marker.</li>
 	<li>Display available docks on the marker.</li>
 	<li>Switch between those 2 views.</li>
-	<li>Find the closest dock station to a point.
+	<li>Find the closest dock station to a point. - DONE
 		<ul>
-			<li>Dont route people to unavailable or empty stations.</li>
+			<li>Dont route people to unavailable or empty stations. - DONE</li>
 		</ul>
 	</li>
 	<li>Retrieve walking directions to closest docking station. - DONE</li>
