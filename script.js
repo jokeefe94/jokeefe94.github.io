@@ -76,8 +76,8 @@ function LondonBikes() {
 
 	// Setup for direction services
 	function initializeDirections(google) {
-		self.directionsService = new google.DirectionsService();
-		self.startWalkingDirectionsDisplay = new DirectionsRenderer({
+		self.directionsService = new google.maps.DirectionsService();
+		self.startWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: ture,
 			polylineOptions: {
@@ -85,7 +85,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.bikingDirectionsDisplay = new DirectionsRenderer({
+		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
 			polylineOptions: {
@@ -93,7 +93,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.endWalkingDirectionsDisplay = new DirectionsRenderer({
+		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
 			polylineOptions: {
