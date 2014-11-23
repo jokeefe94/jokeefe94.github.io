@@ -71,7 +71,7 @@ function LondonBikes() {
 		self.endSearchBox = new google.maps.places.SearchBox((endSearchInput));
 		google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
 		
-		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
+		google.maps.event.addListener(self.map, 'bounds_changed', updateBounds);
 	}
 
 	// Setup for direction services
