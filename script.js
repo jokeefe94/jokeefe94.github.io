@@ -113,7 +113,12 @@ function LondonBikes() {
 
 		var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
 		var station = findClosestStations(latLng);
-		self.markers.push(station.marker(google, self.map));
+		if (station !== undefined) {
+			self.markers.push(station.marker(google, self.map));
+		}
+		else {
+			alert("findClosestStations() returned undefined");
+		}
 	}
 
 	// Called when the map bounds change
