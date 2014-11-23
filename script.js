@@ -136,8 +136,10 @@ function LondonBikes() {
 
 		// The location can be found by going to self.startLocation.geometry.location
 		self.startLocation = places[0];
+		var latLng = {lat:self.startLocation.geometry.location.lat(), lng: self.startLocation.geometry.location.lng()};
+		self.startStation = findClosestStations(latLng);
 
-		findStationAndAddMarker(self.startLocation);
+		addMarkerToLocationAndStation(self.startLocation, self.startStation);
 	}
 
 	function endPlacesChanged() {
@@ -149,28 +151,40 @@ function LondonBikes() {
 
 		// The location can be found by going to self.startLocation.geometry.location
 		self.endLocation = places[0];
+		var latLng = {lat:self.endLocation.geometry.location.lat(), lng: self.endLocation.geometry.location.lng()};
+		self.endStation = findClosestStations(latLng);
 
-		findStationAndAddMarker(self.endLocation);
+		addMarkerToLocationAndStation(self.endLocation, self.endStation);
 	}
 
-	// Adds a marker to the map for the searched location and the closest bike station
-	function findStationAndAddMarker(loc) {
+	function addMarkerToLocationAndStation(loc, station) {
 		var searchMarker = new google.maps.Marker({
 			position: loc.geometry.location,
 			title: "Search Location",
 			map: self.map
 		});
 		self.markers.push(searchMarker);
-
-		var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
-		var station = findClosestStations(latLng);
-		if (station !== undefined) {
-			self.markers.push(station.marker(google, self.map));
-		}
-		else {
-			console.log("findClosestStations(%O) returned undefined", latLng);
-		}
+		self.markers.push(station.marker(google, self.map));
 	}
+
+	// Adds a marker to the map for the searched location and the closest bike station
+	// function findStationAndAddMarker(loc) {
+	// 	var searchMarker = new google.maps.Marker({
+	// 		position: loc.geometry.location,
+	// 		title: "Search Location",
+	// 		map: self.map
+	// 	});
+	// 	self.markers.push(searchMarker);
+
+	// 	var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
+	// 	var station = findClosestStations(latLng);
+	// 	if (station !== undefined) {
+	// 		self.markers.push(station.marker(google, self.map));
+	// 	}
+	// 	else {
+	// 		console.log("findClosestStations(%O) returned undefined", latLng);
+	// 	}
+	// }
 
 	// Called when the map bounds change
 	function updateBounds() {
