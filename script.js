@@ -48,8 +48,8 @@ function LondonBikes() {
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
 		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
 		
-		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
 		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
+		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
