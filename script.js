@@ -42,10 +42,10 @@ function LondonBikes() {
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
 		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 
-		var endSearchInput = (document.getElementById('end-input'));
-		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
-		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
-		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
+		// var endSearchInput = (document.getElementById('end-input'));
+		// self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
+		// self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		// google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
 
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
@@ -117,7 +117,7 @@ function LondonBikes() {
 			self.markers.push(station.marker(google, self.map));
 		}
 		else {
-			alert("findClosestStations() returned undefined");
+			console.log("findClosestStations(%O) returned undefined", latLng);
 		}
 	}
 
