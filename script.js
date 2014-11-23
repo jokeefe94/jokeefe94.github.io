@@ -14,7 +14,8 @@ function LondonBikes() {
 	self.markers = new Array();
 
 	var initialize = function(google) {
-		// Reload the data when it is updated (every 3 minutes == 180000 ms).
+		self.stations = loadStations();
+		// Reload the data when it is updated (every 3 minutes == 180000 ms)
 		window.setInterval(function() {
 			self.stations = loadStations();
 		}, 180000);
