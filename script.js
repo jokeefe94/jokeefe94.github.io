@@ -286,7 +286,7 @@ function LondonBikes() {
 	// The only public function
 	self.initialize = initialize;
 	self.removeAllMarkers = removeAllMarkers;
-	self.showAllStations = showAllStations;
+	//self.showAllStations = showAllStations;
 }
 
 function TestControl(controlDiv, onclick) {
