@@ -79,7 +79,7 @@ function LondonBikes() {
 		self.directionsService = new google.maps.DirectionsService();
 		self.startWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
-			preserveViewport: ture,
+			preserveViewport: true,
 			polylineOptions: {
 				strokeColor: self.settings.walkingStrokeColor
 			}
