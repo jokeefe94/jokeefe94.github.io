@@ -255,6 +255,8 @@ function LondonBikes() {
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
+			console.log("routes: %O, %O, %O", startWalkingRoute, bikingRoute, endWalkingRoute);
+
 			self.directionsService.route(startWalkingRoute, function(result, status) {
 				console.log("sw: %O, %s", result, status);
 				if (status == google.maps.DirectionsStatus.OK) {
