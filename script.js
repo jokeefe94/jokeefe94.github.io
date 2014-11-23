@@ -47,7 +47,7 @@ function LondonBikes() {
 		var endSearchInput = (document.getElementById('end-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
 		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
-		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
+		google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
@@ -87,6 +87,19 @@ function LondonBikes() {
 		self.startLocation = places[0];
 
 		findStationAndAddMarker(self.startLocation);
+	}
+
+	function endPlacesChanged() {
+		var places = self.endSearchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
+		}
+
+		// The location can be found by going to self.startLocation.geometry.location
+		self.endLocation = places[0];
+
+		findStationAndAddMarker(self.endLocation);
 	}
 
 	// Called when a user searches for a place in the end position search box
