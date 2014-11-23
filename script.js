@@ -102,6 +102,13 @@ function LondonBikes() {
 		});
 	}
 
+	function removeAllMarkers() {
+		for (var i = 0; i < self.markers.length; i++) {
+			markers[i].setMap(null);
+		}
+		markers = [];
+	}
+
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
 	function loadStations() {
 		if (window.XMLHttpRequest)
@@ -230,54 +237,53 @@ function LondonBikes() {
 		return (self.startLocation !== null) && (self.startStation !== null) && (self.endLocation !== null) && (self.endStation !== null);
 	}
 
-	function stationLatLngStr(station) {
-		return new google.maps.LatLng(station.lat, station.lng);
-	}
-
 	function getDirections() {
 		if (canGetDirections()) {
 
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
-				destination: stationLatLngStr(self.startStation),
+				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lng),
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
 			bikingRoute = {
-				origin: stationLatLngStr(self.startStation),
-				destination: stationLatLngStr(self.endStation),
+				origin: new google.maps.LatLng(self.startStation.lat, self.startStation.lng),
+				destination: new google.maps.LatLng(self.endStation.lat, self.endStation.lng),
 				travelMode: google.maps.TravelMode.BICYCLING
 			};
 
 			endWalkingRoute = {
-				origin: stationLatLngStr(self.endStation),
+				origin: new google.maps.LatLng(self.endStation.lat, self.endStation.lng),
 				destination: self.endLocation.geometry.location,
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
-			console.log("routes: %O, %O, %O", startWalkingRoute, bikingRoute, endWalkingRoute);
+			var leggesAdded = 0;
 
+			// Get the directions and display them
 			self.directionsService.route(startWalkingRoute, function(result, status) {
-				console.log("sw: %O, %s", result, status);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
+					leggesAdded++;
 				}
 			});
 			self.directionsService.route(bikingRoute, function(result, status) {
-				console.log("b: %O, %s", result, status);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
+					leggesAdded++;
 				}
 			});
 			self.directionsService.route(endWalkingRoute, function(result, status) {
-				console.log("ew: %O, %s", result, status);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
+					leggesAdded++;
 				}
 			});
-		}
-		else {
-			console.log("sl: %O, ss: %O, el: %O, es: %O", self.startLocation, self.startStation, self.endLocation, self.endStation);
+
+			if (leggesAdded == 3) {
+				removeAllMarkers();
+			}
+
 		}
 	}
 
