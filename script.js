@@ -236,19 +236,19 @@ function LondonBikes() {
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
 				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
-				travelMode: google.TravelMode.WALKING
+				travelMode: google.maps.TravelMode.WALKING
 			};
 
 			bikingRoute = {
 				origin: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
 				destination: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
-				travelMode: google.TravelMode.BIKING
+				travelMode: google.maps.TravelMode.BIKING
 			};
 
 			endWalkingRoute = {
 				origin: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
 				destination: self.endLocation.geometry.location,
-				travelMode: google.TravelMode.WALKING
+				travelMode: google.maps.TravelMode.WALKING
 			};
 
 			self.directionsService.route(startWalkingRoute, function(result, status) {
