@@ -253,6 +253,9 @@ function LondonBikes() {
 				}
 			});
 		}
+		else {
+			console.log("sl: %O, ss: %O, el: %O, es: %O", self.startLocation, self.startStation, self.endLocation, self.endStation);
+		}
 	}
 
 	function addTestButton() {
