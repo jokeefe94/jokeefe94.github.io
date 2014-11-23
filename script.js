@@ -5,23 +5,44 @@
 function LondonBikes() {
 
 	var self = this;
+
+	self.settings = {
+		dataUpdateFrequency: 180000 // 3 min
+		walkingStrokeColor: 'red',
+		bikingStrokeColor: 'blue'
+	};
+
+	self.map = null;
 	self.startSearchBox = null;
 	self.endSearchBox = null;
+
 	self.startLocation = null;
+	self.startStation = null;
 	self.endLocation = null;
-	self.map = null;
+	self.endStation = null;
+
+	self.directionService = null;
+	self.startWalkingDirectionsDisplay = null;
+	self.bikingDirectionsDisplay = null;
+	self.endWalkingDirectionsDisplay = null;
+
 	self.stations = new Array();
 	self.markers = new Array();
 
 	var initialize = function(google) {
+		initializeData();
+		initializeMap(google);
+		initializeDirections(google);
+	}
+
+	// Loads station data
+	function initializeData() {
 		self.stations = loadStations();
 		// Reload the data when it is updated (every 3 minutes == 180000 ms)
 		window.setInterval(function() {
 			console.log("Reloaded stations");
 			self.stations = loadStations();
-		}, 180000);
-
-		initializeMap(google);
+		}, self.settings.dataUpdateFrequency);
 	}
 
 	// Setup google maps
@@ -52,6 +73,34 @@ function LondonBikes() {
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
 	}
 
+	// Setup for direction services
+	function initializeDirections(google) {
+		self.directionService = new google.DirectionService();
+		self.startWalkingDirectionsDisplay = new DirectionsRenderer({
+			map: self.map,
+			preserveViewport: ture,
+			polylineOptions: {
+				strokeColor: self.settings.walkingStrokeColor
+			}
+		});
+
+		self.bikingDirectionsDisplay = new DirectionsRenderer({
+			map: self.map,
+			preserveViewport: true,
+			polylineOptions: {
+				strokeColor: self.settings.bikingStrokeColor
+			}
+		});
+
+		self.endWalkingDirectionsDisplay = new DirectionsRenderer({
+			map: self.map,
+			preserveViewport: true,
+			polylineOptions: {
+				strokeColor: self.settings.walkingStrokeColor
+			}
+		});
+	}
+
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
 	function loadStations() {
 		if (window.XMLHttpRequest)
@@ -75,7 +124,8 @@ function LondonBikes() {
 		return stations
 	}
 
-	// Called when a user searches for a place in the start position search box
+	// Called when a user searches for a place in the start position search box.
+	// NOTE: Too much code duplication b/w startPlacesChanged() and endPlacedChanged()
 	function startPlacesChanged() {
 		var places = self.startSearchBox.getPlaces();
 
@@ -125,7 +175,7 @@ function LondonBikes() {
 	function updateBounds() {
 		var bounds = self.map.getBounds();
 		self.startSearchBox.setBounds(bounds);
-		// self.endSearchBox.setBounds(bounds);
+		self.endSearchBox.setBounds(bounds);
 	}
 
 	// This could probably be faster...
@@ -154,6 +204,18 @@ function LondonBikes() {
 		var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLng / 2) * Math.sin(dLng /2) * Math.cos(lat1) * Math.cos(lat2);
 		var c = 2.0 * Math.asin(Math.sqrt(a));
 		return radius*c;
+	}
+
+	// Checks if the user has given enough information to get directions
+	function canGetDirections() {
+		return (self.startLocation !== null) && (self.startStation !== null) && (self.endLocation !== null) && (self.endStation !== null);
+	}
+
+	function getDirections() {
+		if (canGetDirections()) {
+
+
+		}
 	}
 
 	function degToRad(deg) {
