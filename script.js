@@ -174,25 +174,6 @@ function LondonBikes() {
 		self.markers.push(station.marker(google, self.map));
 	}
 
-	// Adds a marker to the map for the searched location and the closest bike station
-	// function findStationAndAddMarker(loc) {
-	// 	var searchMarker = new google.maps.Marker({
-	// 		position: loc.geometry.location,
-	// 		title: "Search Location",
-	// 		map: self.map
-	// 	});
-	// 	self.markers.push(searchMarker);
-
-	// 	var latLng = {lat:loc.geometry.location.lat(), lng: loc.geometry.location.lng()};
-	// 	var station = findClosestStations(latLng);
-	// 	if (station !== undefined) {
-	// 		self.markers.push(station.marker(google, self.map));
-	// 	}
-	// 	else {
-	// 		console.log("findClosestStations(%O) returned undefined", latLng);
-	// 	}
-	// }
-
 	// Called when the map bounds change
 	function updateBounds() {
 		var bounds = self.map.getBounds();
@@ -240,6 +221,8 @@ function LondonBikes() {
 	function getDirections() {
 		if (canGetDirections()) {
 
+			removeAllMarkers();
+
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
 				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lng),
@@ -279,10 +262,6 @@ function LondonBikes() {
 					leggesAdded++;
 				}
 			});
-
-			if (leggesAdded == 3) {
-				removeAllMarkers();
-			}
 
 		}
 	}
