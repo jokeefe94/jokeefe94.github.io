@@ -252,17 +252,17 @@ function LondonBikes() {
 			};
 
 			self.directionsService.route(startWalkingRoute, function(result, status) {
-				if (status == google.maps.DirectionStatus.OK) {
+				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
 				}
 			});
 			self.directionsService.route(bikingRoute, function(result, status) {
-				if (status == google.maps.DirectionStatus.OK) {
+				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
 				}
 			});
 			self.directionsService.route(endWalkingRoute, function(result, status) {
-				if (status == google.maps.DirectionStatus.OK) {
+				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
 				}
 			});
