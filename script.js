@@ -242,7 +242,7 @@ function LondonBikes() {
 			bikingRoute = {
 				origin: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
 				destination: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
-				travelMode: google.maps.TravelMode.BIKING
+				travelMode: google.maps.TravelMode.BICYCLING
 			};
 
 			endWalkingRoute = {
