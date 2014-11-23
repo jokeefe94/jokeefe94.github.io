@@ -6,15 +6,19 @@ function LondonBikes() {
 
 	var self = this;
 	self.startSearchBox = null;
-	// self.endSearchInput = null;
+	self.endSearchInput = null;
 	self.startLocation = null;
-	// self.endLocation = null;
+	self.endLocation = null;
 	self.map = null;
 	self.stations = new Array();
 	self.markers = new Array();
 
 	var initialize = function(google) {
-		self.stations = loadStations();
+		// Reload the data when it is updated (every 3 minutes == 180000 ms).
+		window.setInterval(function() {
+			self.stations = loadStations();
+		}, 180000);
+
 		initializeMap(google);
 	}
 
@@ -38,10 +42,10 @@ function LondonBikes() {
 		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
 		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 
-		// var endSearchInput = (document.getElementById('end-input'));
-		// self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
-		// self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
-		// google.maps.event.addListener(self.endSearchBox, 'places_changed', endPlacesChanged);
+		var endSearchInput = (document.getElementById('end-input'));
+		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(endSearchInput);
+		self.endSearchInput = new google.maps.places.SearchBox((endSearchInput));
+		google.maps.event.addListener(self.endSearchBox, 'places_changed', startPlacesChanged);
 
 		
 		google.maps.event.addListener(map, 'bounds_changed', updateBounds);
