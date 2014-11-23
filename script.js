@@ -39,10 +39,10 @@ function LondonBikes() {
 		// }
 
 		// Setup the search boxes
-		// var startSearchInput = (document.getElementById('start-input'));
-		// self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
-		// self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
-		// google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
+		var startSearchInput = (document.getElementById('start-input'));
+		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
+		self.startSearchBox = new google.maps.places.SearchBox((startSearchInput));
+		google.maps.event.addListener(self.startSearchBox, 'places_changed', startPlacesChanged);
 
 		var endSearchInput = (document.getElementById('end-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(endSearchInput);
