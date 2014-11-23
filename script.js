@@ -54,7 +54,7 @@ function LondonBikes() {
 		};
 		self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-		self.showAllStations();
+		showAllStations();
 
 		// Setup the search boxes
 		var startSearchInput = (document.getElementById('start-input'));
