@@ -230,24 +230,32 @@ function LondonBikes() {
 		return (self.startLocation !== null) && (self.startStation !== null) && (self.endLocation !== null) && (self.endStation !== null);
 	}
 
+	function stationLatLngStr(station) {
+		return "%f,%f", station.lat, station.lng;
+	}
+
+	function locationLatLngStr(location) {
+		return "%f,%f", location.geometry.location.lat(), location.geometry.location.lng();
+	}
+
 	function getDirections() {
 		if (canGetDirections()) {
 
 			startWalkingRoute = {
-				origin: self.startLocation.geometry.location,
-				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
+				origin: locationLatLngStr(self.startLocation),
+				destination: stationLatLngStr(self.startStation),
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
 			bikingRoute = {
-				origin: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
-				destination: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
+				origin: stationLatLngStr(self.startStation),
+				destination: stationLatLngStr(self.endStation),
 				travelMode: google.maps.TravelMode.BICYCLING
 			};
 
 			endWalkingRoute = {
-				origin: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
-				destination: self.endLocation.geometry.location,
+				origin: stationLatLngStr(self.endStation),
+				destination: locationLatLngStr(self.endLocation),
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
