@@ -54,6 +54,8 @@ function LondonBikes() {
 		};
 		self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+		self.showAllStations();
+
 		// Setup the search boxes
 		var startSearchInput = (document.getElementById('start-input'));
 		self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(startSearchInput);
@@ -105,7 +107,8 @@ function LondonBikes() {
 
 	function showAllStations() {
 		for (var i = 0; i < self.stations.length; i++) {
-			self.markers.push(self.stations[i].marker(google, self.map));
+			marker = self.stations[i].marker(google, self.map);
+			self.markers.push(marker);
 		}
 	}
 
