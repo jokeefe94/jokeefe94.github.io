@@ -214,7 +214,39 @@ function LondonBikes() {
 	function getDirections() {
 		if (canGetDirections()) {
 
+			startWalkingRoute = {
+				origin: startLocation.geometry.location,
+				destination: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
+				travelMode: google.TravelMode.WALKING
+			};
 
+			bikingRoute = {
+				origin: new google.maps.LatLng(self.startStation.lat, self.startStation.lon),
+				destination: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
+				travelMode: google.TravelMode.BIKING
+			};
+
+			endWalkingRoute = {
+				origin: new google.maps.LatLng(self.endStation.lat, self.endStation.lon),
+				destination: endLocation.geometry.location,
+				travelMode: google.TravelMode.WALKING
+			};
+
+			self.directionService.route(startWalkingRoute, function(result, status) {
+				if (status == google.maps.DirectionStatus.OK) {
+					self.startWalkingDirectionsDisplay.setDirections(result);
+				}
+			});
+			self.directionService.route(bikingRoute, function(result, status) {
+				if (status == google.maps.DirectionStatus.OK) {
+					self.bikingDirectionsDisplay.setDirections(result);
+				}
+			});
+			self.directionService.route(endWalkingRoute, function(result, status) {
+				if (status == google.maps.DirectionStatus.OK) {
+					self.endWalkingDirectionsDisplay.setDirections(result);
+				}
+			});
 		}
 	}
 
