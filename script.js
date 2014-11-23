@@ -257,7 +257,11 @@ function LondonBikes() {
 
 	function addTestButton() {
 		var testBtnDiv = document.createElement('div');
-		var testControl = new TestControl(testBtnDiv, self.map);
+		
+		var testControl = new TestControl(testBtnDiv, function() {
+			self.getDirections();
+		});
+		
 		testBtnDiv.index = 1;
 		self.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(testBtnDiv);
 	}
@@ -266,7 +270,7 @@ function LondonBikes() {
 	self.initialize = initialize;
 }
 
-function TestControl(controlDiv, map) {
+function TestControl(controlDiv, onclick) {
 	// Set CSS styles for the DIV containing the control
 	// Setting padding to 5 px will offset the control
 	// from the edge of the map
@@ -291,11 +295,7 @@ function TestControl(controlDiv, map) {
 	controlText.innerHTML = '<b>Test</b>';
 	controlUI.appendChild(controlText);
 
-	// Setup the click event listeners: simply set the map to
-	// Chicago
-	google.maps.event.addDomListener(controlUI, 'click', function() {
-		console.log("Clicked!!!");
-	});
+	google.maps.event.addDomListener(controlUI, 'click', onclick);
 }
 
 
