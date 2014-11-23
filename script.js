@@ -7,7 +7,7 @@ function LondonBikes() {
 	var self = this;
 
 	self.settings = {
-		dataUpdateFrequency: 180000 // 3 min
+		dataUpdateFrequency: 180000, // 3 min
 		walkingStrokeColor: 'red',
 		bikingStrokeColor: 'blue'
 	};
