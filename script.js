@@ -21,7 +21,7 @@ function LondonBikes() {
 	self.endLocation = null;
 	self.endStation = null;
 
-	self.directionService = null;
+	self.directionsService = null;
 	self.startWalkingDirectionsDisplay = null;
 	self.bikingDirectionsDisplay = null;
 	self.endWalkingDirectionsDisplay = null;
@@ -76,7 +76,7 @@ function LondonBikes() {
 
 	// Setup for direction services
 	function initializeDirections(google) {
-		self.directionService = new google.DirectionService();
+		self.directionsService = new google.DirectionsService();
 		self.startWalkingDirectionsDisplay = new DirectionsRenderer({
 			map: self.map,
 			preserveViewport: ture,
@@ -237,17 +237,17 @@ function LondonBikes() {
 				travelMode: google.TravelMode.WALKING
 			};
 
-			self.directionService.route(startWalkingRoute, function(result, status) {
+			self.directionsService.route(startWalkingRoute, function(result, status) {
 				if (status == google.maps.DirectionStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
 				}
 			});
-			self.directionService.route(bikingRoute, function(result, status) {
+			self.directionsService.route(bikingRoute, function(result, status) {
 				if (status == google.maps.DirectionStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
 				}
 			});
-			self.directionService.route(endWalkingRoute, function(result, status) {
+			self.directionsService.route(endWalkingRoute, function(result, status) {
 				if (status == google.maps.DirectionStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
 				}
