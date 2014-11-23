@@ -104,9 +104,9 @@ function LondonBikes() {
 
 	function removeAllMarkers() {
 		for (var i = 0; i < self.markers.length; i++) {
-			markers[i].setMap(null);
+			self.markers[i].setMap(null);
 		}
-		markers = [];
+		self.markers = [];
 	}
 
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
