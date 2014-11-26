@@ -84,6 +84,8 @@ function LondonBikes() {
 			}
 		});
 
+		self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel'));
+
 		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
@@ -241,30 +243,30 @@ function LondonBikes() {
 				travelMode: google.maps.TravelMode.WALKING
 			};
 
-			var leggesAdded = 0;
+			var legsAdded = 0;
 
 			// Get the directions and display them
 			self.directionsService.route(startWalkingRoute, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
-					leggesAdded++;
+					legsAdded++;
 				}
 			});
 			self.directionsService.route(bikingRoute, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
-					leggesAdded++;
+					legsAdded++;
 				}
 			});
 			self.directionsService.route(endWalkingRoute, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
-					leggesAdded++;
+					legsAdded++;
 				}
 			});
 
 			// Remove markers added if the directions are successful
-			if (leggesAdded == 3) {
+			if (legsAdded == 3) {
 				removeAllMarkers();
 			}
 

@@ -125,4 +125,9 @@ html, body, #map-canvas {
 	font-weight: 300;
 }
 
-
+#directions-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
