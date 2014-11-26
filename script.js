@@ -94,6 +94,8 @@ function LondonBikes() {
 			}
 		});
 
+		self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel'));
+
 		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
