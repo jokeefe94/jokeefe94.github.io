@@ -84,7 +84,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel'));
+		self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel1'));
 
 		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -94,7 +94,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel'));
+		self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel2'));
 
 		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -103,6 +103,8 @@ function LondonBikes() {
 				strokeColor: self.settings.walkingStrokeColor
 			}
 		});
+
+		self.endWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel3'));
 	}
 
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects

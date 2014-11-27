@@ -60,22 +60,22 @@ html, body, #map-canvas {
 }
 
 #directions-panel1 {
-        height: 33%;
+        height: 100%;
         float: right;
-        width: 390px;
+        width: 200px;
         overflow: auto;
       }
 
 #directions-panel2 {
-        height: 33%;
+        height: 100%;
         float: right;
-        width: 390px;
+        width: 200px;
         overflow: auto;
       }
 
 #directions-panel3 {
-        height: 33%;
+        height: 100%;
         float: right;
-        width: 390px;
+        width: 200px;
         overflow: auto;
       }
