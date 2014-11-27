@@ -228,6 +228,7 @@ function LondonBikes() {
 
 	function getDirections() {
 		if (canGetDirections()) {
+			removeAllMarkers();
 
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
