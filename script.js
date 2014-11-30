@@ -8,7 +8,8 @@ function LondonBikes() {
 	self.settings = {
 		dataUpdateFrequency	: 180000, // 3 min
 		walkingStrokeColor	: 'red',
-		bikingStrokeColor	: 'blue'
+		bikingStrokeColor	: 'blue',
+		removeCopyright 	: true
 	};
 
 	self.StationPurpose = {
@@ -303,17 +304,31 @@ function LondonBikes() {
 	}
 
 	function addDirectionsToPanel(sourceDivId) {
-		appendElementToElement(sourceDivId, 'directions');
-	}
-
-	function appendElementToElement(sourceDivId, destDivId) {
 		source = document.getElementById(sourceDivId);
+		removeGoogleCopyright(sourceDivId);
 		dest = document.getElementById(destDivId);
 		dest.innerHTML += source.innerHTML;
 	}
 
+	function removeGoogleCopyright(divId) {
+		if (self.settings.removeCopyright) {
+			elmnt = document.getElementById(divId);
+			cpyElmnts = elmnt.getElementsByClassName('adp-legal');
+			for (cpyElmnt in cpyElmnts) {
+				removeElement(cpyElmnt);
+			}
+		}
+		else {
+			console.log("Cannot remove Google Copyright...")
+		}
+	}
+
 	function clearDirections() {
 		document.getElementById('directions').innerHTML = "";
+	}
+
+	function removeElement(element) {
+		element.parentNode.removeChild(element);
 	}
 
 	function addTestButton() {
