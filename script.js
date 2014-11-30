@@ -309,8 +309,9 @@ function LondonBikes() {
 
 	function addDirectionsToPanel(sourceDivId) {
 		source = document.getElementById(sourceDivId);
-		dest = document.getElementById(destDivId);
+		dest = document.getElementById('directions');
 		dest.innerHTML += source.innerHTML;
+		source.style.display = 'none';
 	}
 
 	function removeGoogleCopyright(divId) {
