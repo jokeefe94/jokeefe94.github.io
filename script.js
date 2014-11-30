@@ -316,7 +316,7 @@ function LondonBikes() {
 			elmnt = document.getElementById(divId);
 			cpyElmnts = elmnt.getElementsByClassName('adp-legal');
 			for (cpyElmnt in cpyElmnts) {
-				removeElement(cpyElmnt);
+				cpyElmnt.style.display = 'none';
 			}
 		}
 		else {
@@ -326,10 +326,6 @@ function LondonBikes() {
 
 	function clearDirections() {
 		document.getElementById('directions').innerHTML = "";
-	}
-
-	function removeElement(element) {
-		element.parentNode.removeChild(element);
 	}
 
 	function addTestButton() {
