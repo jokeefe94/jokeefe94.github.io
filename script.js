@@ -1,5 +1,7 @@
 // document.getElementById("foot01").innerHTML =
 // "<p>&copy;  " + new Date().getFullYear() + " jokeefe94. All rights reserved.</p>";
+//Green Bike Marker: http://i.imgur.com/wZr54wa.png
+//Red Bike Marker: http://i.imgur.com/5uGhDyq.png
 
 function LondonBikes() {
 
