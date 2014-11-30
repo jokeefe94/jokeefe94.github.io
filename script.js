@@ -307,9 +307,9 @@ function LondonBikes() {
 
 	function extractDirections() {
 		renderPanel = document.getElementById('dir-render');
-		console.log("render:" renderPanel.innerHTML);
+		console.log("render:", renderPanel.innerHTML);
 		displayPanel = document.getElementById('directions');
-		console.log("display:" displayPanel.innerHTML);
+		console.log("display:", displayPanel.innerHTML);
 		displayPanel.innerHTML += renderPanel.innerHTML;
 		console.log("both:", displayPanel.innerHTML);
 	}
