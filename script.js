@@ -252,18 +252,21 @@ function LondonBikes() {
 
 			// Get the directions and display them
 			self.directionsService.route(startWalkingRoute, function(result, status) {
+				console.log("%O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
 					legsAdded++;
 				}
 			});
 			self.directionsService.route(bikingRoute, function(result, status) {
+				console.log("%O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
 					legsAdded++;
 				}
 			});
 			self.directionsService.route(endWalkingRoute, function(result, status) {
+				console.log("%O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
 					legsAdded++;
