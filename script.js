@@ -301,7 +301,7 @@ function LondonBikes() {
 	}
 
 	function addDirectionsToPanel(directions) {
-		self.directionsRenderer.directions(directions);
+		self.directionsRenderer.setDirections(directions);
 		extractDirections();
 	}
 
