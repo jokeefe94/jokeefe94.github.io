@@ -302,7 +302,7 @@ function LondonBikes() {
 
 	function addDirectionsToPanel(directions) {
 		self.directionsRenderer.setDirections(directions);
-		setTimeout(extractDirections, 500);
+		setTimeout(extractDirections, 50);
 	}
 
 	function extractDirections() {
@@ -312,10 +312,17 @@ function LondonBikes() {
 		console.log("display:", displayPanel.innerHTML);
 		displayPanel.innerHTML += renderPanel.innerHTML;
 		console.log("both:", displayPanel.innerHTML);
+		clearDirectionRender();
 	}
 
 	function clearDirections() {
-		//document.getElementById('directions').innerHTML = "";
+		document.getElementById('directions').innerHTML = "";
+	}
+
+	function clearDirectionRender() {
+		renderPanel = document.getElementById('dir-render');
+		renderPanel.innerHTML = "";
+		renderPanel.style.display = "none";
 	}
 
 	function addTestButton() {
