@@ -307,12 +307,15 @@ function LondonBikes() {
 
 	function extractDirections() {
 		renderPanel = document.getElementById('dir-render');
+		console.log("renderpanel:" + renderPanel.innerHTML);
 		displayPanel = document.getElementById('directions');
+		console.log("displaypanel:" + displayPanel.innerHTML);
 		displayPanel.innerHTML = displayPanel.innerHTML + renderPanel.innerHTML;
+		console.log("displaypanel2:" + displayPanel.innerHTML);
 	}
 
 	function clearDirections() {
-		document.getElementById('directions').innerHTML = "";
+		//document.getElementById('directions').innerHTML = "";
 	}
 
 	function addTestButton() {

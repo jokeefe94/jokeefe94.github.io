@@ -68,6 +68,7 @@ html, body, #map-canvas {
 
 #dir_render {
 	display: none;
+	visibility: hidden;
 }
 
 #directions-panel1 {
