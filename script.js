@@ -13,7 +13,7 @@ function LondonBikes() {
 
 	self.StationPurpose = {
 		RETRIEVE	: 'retrieve',	// Pick up a bike
-		DOCK 		: 'dock',			// Return a bike
+		DOCK 		: 'dock'		// Return a bike
 	};
 
 	self.map = null;
@@ -27,6 +27,7 @@ function LondonBikes() {
 
 	// These may not need to be shared with the entire class
 	self.directionsService = null;
+	self.directionsRender = null;
 	self.startWalkingDirectionsDisplay = null;
 	self.bikingDirectionsDisplay = null;
 	self.endWalkingDirectionsDisplay = null;
@@ -84,7 +85,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel1'));
+		//self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel1'));
 
 		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -94,7 +95,7 @@ function LondonBikes() {
 			}
 		});
 
-		self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel2'));
+		//self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel2'));
 
 		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -104,7 +105,21 @@ function LondonBikes() {
 			}
 		});
 
-		self.endWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel3'));
+		//self.endWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel3'));
+
+		self.directionsRenderer = new google.maps.DirectionsRenderer({
+			map: self.map,
+			preserveViewport: true,
+			polylineOptions: {
+				strokeColor: 'clear'
+			},
+			suppressMarkers: true,
+			suppressPolylines: true,
+			suppressInfoWindows: true,
+			suppressBicyclingLayer: true
+		});
+
+		self.directionsRenderer.setPanel(document.getElementById('dir-render'));
 	}
 
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
@@ -229,6 +244,7 @@ function LondonBikes() {
 	function getDirections() {
 		if (canGetDirections()) {
 			removeAllMarkers();
+			clearDirections();
 
 			startWalkingRoute = {
 				origin: self.startLocation.geometry.location,
@@ -255,6 +271,7 @@ function LondonBikes() {
 				console.log("walking: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
+					addDirectionsToPanel(result);
 					legsAdded++;
 				}
 			});
@@ -262,6 +279,7 @@ function LondonBikes() {
 				console.log("bikeing: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
+					addDirectionsToPanel(result);
 					legsAdded++;
 				}
 			});
@@ -269,6 +287,7 @@ function LondonBikes() {
 				console.log("walking (again): %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
+					addDirectionsToPanel(result);
 					legsAdded++;
 				}
 			});
@@ -279,6 +298,21 @@ function LondonBikes() {
 			}
 
 		}
+	}
+
+	function addDirectionsToPanel(directions) {
+		self.directionsRenderer.directions(directions);
+		extractDirections();
+	}
+
+	function extractDirections() {
+		renderPanel = document.getElementById('dir-render');
+		displayPanel = document.getElementById('directions');
+		displayPanel.innerHTML = displayPanel.innerHTML + renderPanel.innerHTML;
+	}
+
+	function clearDirections() {
+		document.getElementById('directions').innerHTML = "";
 	}
 
 	function addTestButton() {

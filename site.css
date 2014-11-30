@@ -59,6 +59,17 @@ html, body, #map-canvas {
 	font-weight: 300;
 }
 
+#directions {
+	height: 100%;
+	float:right;
+	width: 500px;
+	overflow: auto;
+}
+
+#dir_render {
+	display: none;
+}
+
 #directions-panel1 {
         height: 100%;
         float: right;
