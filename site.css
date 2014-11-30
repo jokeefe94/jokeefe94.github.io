@@ -66,28 +66,6 @@ html, body, #map-canvas {
 	overflow: auto;
 }
 
-#dir_render {
-	display: none;
-	visibility: hidden;
+#startWalkDirectionsPanel, #bikingDirectionsPanel, #endWalkDirectionsPanel {
+	display: "none";
 }
-
-#directions-panel1 {
-        height: 100%;
-        float: right;
-        width: 200px;
-        overflow: auto;
-      }
-
-#directions-panel2 {
-        height: 100%;
-        float: right;
-        width: 200px;
-        overflow: auto;
-      }
-
-#directions-panel3 {
-        height: 100%;
-        float: right;
-        width: 200px;
-        overflow: auto;
-      }

@@ -16,6 +16,8 @@ function LondonBikes() {
 		DOCK 		: 'dock'		// Return a bike
 	};
 
+	self.DirectionsPanelsIds = ["startWalkDirectionsPanel", "bikingDirectionsPanel", "endWalkDirectionsPanel"];
+
 	self.map = null;
 	self.startSearchBox = null;
 	self.endSearchBox = null;
@@ -85,7 +87,7 @@ function LondonBikes() {
 			}
 		});
 
-		//self.startWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel1'));
+		self.startWalkingDirectionsDisplay.setPanel(document.getElementById(self.DirectionsPanelsIds[0]));
 
 		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -95,7 +97,7 @@ function LondonBikes() {
 			}
 		});
 
-		//self.bikingDirectionsDisplay.setPanel(document.getElementById('directions-panel2'));
+		self.bikingDirectionsDisplay.setPanel(document.getElementById(self.DirectionsPanelsIds[1]));
 
 		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
@@ -105,21 +107,21 @@ function LondonBikes() {
 			}
 		});
 
-		//self.endWalkingDirectionsDisplay.setPanel(document.getElementById('directions-panel3'));
+		self.endWalkingDirectionsDisplay.setPanel(document.getElementById(self.DirectionsPanelsIds[2]));
 
-		self.directionsRenderer = new google.maps.DirectionsRenderer({
-			map: self.map,
-			preserveViewport: true,
-			polylineOptions: {
-				strokeColor: 'clear'
-			},
-			suppressMarkers: true,
-			suppressPolylines: true,
-			suppressInfoWindows: true,
-			suppressBicyclingLayer: true
-		});
+		// self.directionsRenderer = new google.maps.DirectionsRenderer({
+		// 	map: self.map,
+		// 	preserveViewport: true,
+		// 	polylineOptions: {
+		// 		strokeColor: 'clear'
+		// 	},
+		// 	suppressMarkers: true,
+		// 	suppressPolylines: true,
+		// 	suppressInfoWindows: true,
+		// 	suppressBicyclingLayer: true
+		// });
 
-		self.directionsRenderer.setPanel(document.getElementById('dir-render'));
+		// self.directionsRenderer.setPanel(document.getElementById('dir-render'));
 	}
 
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
@@ -271,7 +273,7 @@ function LondonBikes() {
 				console.log("walking: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
-					addDirectionsToPanel(result);
+					addDirectionsToPanel(self.DirectionsPanelsIds[0])
 					legsAdded++;
 				}
 			});
@@ -279,7 +281,7 @@ function LondonBikes() {
 				console.log("bikeing: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
-					addDirectionsToPanel(result);
+					addDirectionsToPanel(self.DirectionsPanelsIds[1])
 					legsAdded++;
 				}
 			});
@@ -287,7 +289,7 @@ function LondonBikes() {
 				console.log("walking (again): %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.endWalkingDirectionsDisplay.setDirections(result);
-					addDirectionsToPanel(result);
+					addDirectionsToPanel(self.DirectionsPanelsIds[2])
 					legsAdded++;
 				}
 			});
@@ -300,29 +302,18 @@ function LondonBikes() {
 		}
 	}
 
-	function addDirectionsToPanel(directions) {
-		self.directionsRenderer.setDirections(directions);
-		setTimeout(extractDirections, 50);
+	function addDirectionsToPanel(sourceDivId) {
+		appendElementToElement(sourceDivId, 'directions');
 	}
 
-	function extractDirections() {
-		renderPanel = document.getElementById('dir-render');
-		console.log("render:", renderPanel.innerHTML);
-		displayPanel = document.getElementById('directions');
-		console.log("display:", displayPanel.innerHTML);
-		displayPanel.innerHTML += renderPanel.innerHTML;
-		console.log("both:", displayPanel.innerHTML);
-		clearDirectionRender();
+	function appendElementToElement(sourceDivId, destDivId) {
+		source = document.getElementById(sourceDivId);
+		dest = document.getElementById(destDivId);
+		dest.innerHTML += source.innerHTML;
 	}
 
 	function clearDirections() {
 		document.getElementById('directions').innerHTML = "";
-	}
-
-	function clearDirectionRender() {
-		renderPanel = document.getElementById('dir-render');
-		renderPanel.innerHTML = "";
-		renderPanel.style.display = "none";
 	}
 
 	function addTestButton() {
