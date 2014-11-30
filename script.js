@@ -302,16 +302,13 @@ function LondonBikes() {
 
 	function addDirectionsToPanel(directions) {
 		self.directionsRenderer.setDirections(directions);
-		extractDirections();
+		setTimeout(extractDirections, 500);
 	}
 
 	function extractDirections() {
 		renderPanel = document.getElementById('dir-render');
-		console.log("renderpanel:" + renderPanel.innerHTML);
 		displayPanel = document.getElementById('directions');
-		console.log("displaypanel:" + displayPanel.innerHTML);
 		displayPanel.innerHTML = displayPanel.innerHTML + renderPanel.innerHTML;
-		console.log("displaypanel2:" + displayPanel.innerHTML);
 	}
 
 	function clearDirections() {
