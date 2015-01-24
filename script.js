@@ -302,7 +302,8 @@ function LondonBikes() {
 			// Remove markers added if the directions are successful
 			if (legsAdded == 3) {
 				removeAllMarkers();
-			}
+			}	
+			map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 
 		}
 	}
