@@ -314,6 +314,7 @@ function LondonBikes() {
 		source.style.display = 'none';
 	}
 
+	// TODO: Fix this
 	function removeGoogleCopyright(divId) {
 		if (self.settings.removeCopyright) {
 			elmnt = document.getElementById(divId);

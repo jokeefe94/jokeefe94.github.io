@@ -15,6 +15,12 @@ html, body, #map-canvas {
     margin: 0px;
     padding: 0px
 }
+
+#map-canvas {
+	width:70%;
+	float: left;
+}
+
 .controls {
 	margin-top: 16px;
 	border: 1px solid transparent;
@@ -62,7 +68,7 @@ html, body, #map-canvas {
 #directions {
 	height: 100%;
 	float:right;
-	width: 500px;
+	width: 30%;
 	overflow: auto;
 }
 
