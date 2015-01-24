@@ -312,6 +312,7 @@ function LondonBikes() {
 		source = document.getElementById(sourceDivId);
 		dest = document.getElementById('directions');
 		dest.innerHTML += source.innerHTML;
+		console.log("%O", dest.innerHTML);
 		source.style.display = 'none';
 	}
 
