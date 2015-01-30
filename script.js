@@ -303,7 +303,6 @@ function LondonBikes() {
 			if (legsAdded == 3) {
 				removeAllMarkers();
 			}	
-			map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 
 		}
 	}

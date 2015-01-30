@@ -67,8 +67,8 @@ html, body, #map-canvas {
 
 #directions {
 	height: 100%;
-	float:right;
-	width: 30%;
+	float: right;
+	width: 390px;
 	overflow: auto;
 }
 
