@@ -70,6 +70,7 @@ html, body, #map-canvas {
 	float: right;
 	width: 390px;
 	overflow: auto;
+	display: none;
 }
 
 #startWalkDirectionsPanel, #bikingDirectionsPanel, #endWalkDirectionsPanel {
