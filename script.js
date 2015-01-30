@@ -309,7 +309,7 @@ function LondonBikes() {
 
 	function addDirectionsToPanel(sourceDivId) {
 		var source = document.getElementById(sourceDivId);
-		var dest = document.getElementById('directions');
+		var dest = document.getElementById("directions");
 		dest.innerHTML += source.innerHTML;
 		//source.style.display = 'none';
 	}
