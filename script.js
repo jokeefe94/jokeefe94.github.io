@@ -308,11 +308,11 @@ function LondonBikes() {
 	}
 
 	function addDirectionsToPanel(sourceDivId) {
-		source = document.getElementById(sourceDivId);
-		dest = document.getElementById('directions');
+		var source = document.getElementById(sourceDivId);
+		var dest = document.getElementById('directions');
 		dest.innerHTML += source.innerHTML;
 		console.log("%O", dest.innerHTML);
-		source.style.display = 'none';
+		//source.style.display = 'none';
 	}
 
 	// TODO: Fix this
