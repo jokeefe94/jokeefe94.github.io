@@ -308,6 +308,7 @@ function LondonBikes() {
 	}
 
 	function addDirectionsToPanel(sourceDivId) {
+		console.log("Lolz %0", sourceDivId);
 		var source = document.getElementById(sourceDivId);
 		var dest = document.getElementById('directions');
 		dest.innerHTML += source.innerHTML;
