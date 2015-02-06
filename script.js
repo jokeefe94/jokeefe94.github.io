@@ -276,7 +276,7 @@ function LondonBikes() {
 				console.log("walking: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
-					//removeGoogleCopyright(self.DirectionsPanelsIds[0]);
+					removeGoogleCopyright(self.DirectionsPanelsIds[0]);
 					addDirectionsToPanel(self.DirectionsPanelsIds[0])
 					legsAdded++;
 				}
@@ -285,6 +285,7 @@ function LondonBikes() {
 				console.log("bikeing: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
+					console.log("map: %O, bikingDirectionsDisplay: %O", self.map, self.bikingDirectionsDisplay);
 					removeGoogleCopyright(self.DirectionsPanelsIds[1]);
 					addDirectionsToPanel(self.DirectionsPanelsIds[1])
 					legsAdded++;
