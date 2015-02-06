@@ -16,6 +16,14 @@ html, body, #map-canvas {
     padding: 0px
 }
 
+<<<<<<< HEAD
+=======
+#map-canvas {
+	width:70%;
+	float: left;
+}
+
+>>>>>>> f4402fbeeac85d622ffdb0c370200f990dcfa806
 .controls {
 	margin-top: 16px;
 	border: 1px solid transparent;
