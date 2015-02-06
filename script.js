@@ -312,12 +312,8 @@ function LondonBikes() {
 		var source = document.getElementById(sourceDivId);
 		var dest = document.getElementById("directions");
 		dest.innerHTML += source.innerHTML;
-<<<<<<< HEAD
 		source.style.display = 'none';
-=======
 		console.log("dest Html: %0", dest.innerHTML.toString());
-		//source.style.display = 'none';
->>>>>>> 6dd92c45fcfe95a7eb7e0fa7c1bf9d7ec4a6afd4
 	}
 
 	// TODO: Fix this
