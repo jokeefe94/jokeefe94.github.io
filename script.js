@@ -277,6 +277,7 @@ function LondonBikes() {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
 					removeGoogleCopyright(self.DirectionsPanelsIds[0]);
+					console.log("%O", self.)
 					addDirectionsToPanel(self.DirectionsPanelsIds[0])
 					legsAdded++;
 				}
@@ -286,6 +287,7 @@ function LondonBikes() {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
 					removeGoogleCopyright(self.DirectionsPanelsIds[1]);
+					console.log("%O %O", self.map, self.bikingDirectionsDisplay);
 					addDirectionsToPanel(self.DirectionsPanelsIds[1])
 					legsAdded++;
 				}
@@ -311,7 +313,6 @@ function LondonBikes() {
 		source = document.getElementById(sourceDivId);
 		dest = document.getElementById('directions');
 		dest.innerHTML += source.innerHTML;
-		console.log("%O", dest.innerHTML);
 		source.style.display = 'none';
 	}
 
