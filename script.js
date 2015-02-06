@@ -276,8 +276,7 @@ function LondonBikes() {
 				console.log("walking: %O", result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.startWalkingDirectionsDisplay.setDirections(result);
-					removeGoogleCopyright(self.DirectionsPanelsIds[0]);
-					console.log("%O", self.)
+					//removeGoogleCopyright(self.DirectionsPanelsIds[0]);
 					addDirectionsToPanel(self.DirectionsPanelsIds[0])
 					legsAdded++;
 				}
@@ -287,7 +286,6 @@ function LondonBikes() {
 				if (status == google.maps.DirectionsStatus.OK) {
 					self.bikingDirectionsDisplay.setDirections(result);
 					removeGoogleCopyright(self.DirectionsPanelsIds[1]);
-					console.log("%O %O", self.map, self.bikingDirectionsDisplay);
 					addDirectionsToPanel(self.DirectionsPanelsIds[1])
 					legsAdded++;
 				}
@@ -304,16 +302,21 @@ function LondonBikes() {
 			// Remove markers added if the directions are successful
 			if (legsAdded == 3) {
 				removeAllMarkers();
-			}
+			}	
 
 		}
 	}
 
 	function addDirectionsToPanel(sourceDivId) {
-		source = document.getElementById(sourceDivId);
-		dest = document.getElementById('directions');
+		var source = document.getElementById(sourceDivId);
+		var dest = document.getElementById("directions");
 		dest.innerHTML += source.innerHTML;
+<<<<<<< HEAD
 		source.style.display = 'none';
+=======
+		console.log("dest Html: %0", dest.innerHTML.toString());
+		//source.style.display = 'none';
+>>>>>>> 6dd92c45fcfe95a7eb7e0fa7c1bf9d7ec4a6afd4
 	}
 
 	// TODO: Fix this
