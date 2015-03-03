@@ -95,6 +95,7 @@ function LondonBikes() {
 		self.bikingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
+			suppressBicyclingLayer: true,
 			polylineOptions: {
 				strokeColor: self.settings.bikingStrokeColor
 			}
@@ -105,6 +106,7 @@ function LondonBikes() {
 		self.endWalkingDirectionsDisplay = new google.maps.DirectionsRenderer({
 			map: self.map,
 			preserveViewport: true,
+			suppressBicyclingLayer: true,
 			polylineOptions: {
 				strokeColor: self.settings.walkingStrokeColor
 			}
@@ -112,19 +114,19 @@ function LondonBikes() {
 
 		self.endWalkingDirectionsDisplay.setPanel(document.getElementById(self.DirectionsPanelsIds[2]));
 
-		// self.directionsRenderer = new google.maps.DirectionsRenderer({
-		// 	map: self.map,
-		// 	preserveViewport: true,
-		// 	polylineOptions: {
-		// 		strokeColor: 'clear'
-		// 	},
-		// 	suppressMarkers: true,
-		// 	suppressPolylines: true,
-		// 	suppressInfoWindows: true,
-		// 	suppressBicyclingLayer: true
-		// });
+		self.directionsRenderer = new google.maps.DirectionsRenderer({
+			map: self.map,
+			preserveViewport: true,
+			polylineOptions: {
+				strokeColor: 'clear'
+			},
+			suppressMarkers: true,
+			suppressPolylines: true,
+			suppressInfoWindows: true,
+			suppressBicyclingLayer: true
+		});
 
-		// self.directionsRenderer.setPanel(document.getElementById('dir-render'));
+		self.directionsRenderer.setPanel(document.getElementById('dir-render'));
 	}
 
 	// Loads all the stations from tfl.gov.uk and returns an array of Station objects
